@@ -28,7 +28,7 @@ function ProjectForm({ register, errors }: ProjectFormProps) {
 				/>
 
 				{errors.projectName && (
-					<ErrorMsg>{errors.projectName?.message ?? ''}</ErrorMsg>
+					<ErrorMsg>{errors.projectName.message}</ErrorMsg>
 				)}
 			</div>
 
