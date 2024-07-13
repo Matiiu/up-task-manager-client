@@ -17,6 +17,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.36.1
         version: 5.36.1(react@18.3.1)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.51.1
+        version: 5.51.1(@tanstack/react-query@5.36.1(react@18.3.1))(react@18.3.1)
       axios:
         specifier: ^1.6.8
         version: 1.6.8
@@ -42,6 +45,9 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
+      '@types/morgan':
+        specifier: ^1.9.9
+        version: 1.9.9
       '@types/node':
         specifier: ^20.12.12
         version: 20.12.12
@@ -528,6 +534,15 @@ packages:
   '@tanstack/query-core@5.36.1':
     resolution: {integrity: sha512-BteWYEPUcucEu3NBcDAgKuI4U25R9aPrHSP6YSf2NvaD2pSlIQTdqOfLRsxH9WdRYg7k0Uom35Uacb6nvbIMJg==}
 
+  '@tanstack/query-devtools@5.51.1':
+    resolution: {integrity: sha512-rehG0WmL3EXER6MAI2uHQia/n0b5c3ZROohpYm7u3G7yg4q+HsfQy6nuAo6uy40NzHUe3FmnfWCZQ0Vb/3lE6g==}
+
+  '@tanstack/react-query-devtools@5.51.1':
+    resolution: {integrity: sha512-bRShIVKGpUOHpwziGKT8Aq1Ty0lIlGmNI7E0KbGYtmyOaImErpdElTdxfES1bRaI7i/j+mf2hLy+E6q7SrCwPg==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.51.1
+      react: ^18 || ^19
+
   '@tanstack/react-query@5.36.1':
     resolution: {integrity: sha512-BxGdE0DQYcLYJoEWVerxgT8iLLbjM8DOB8C0ASwyLeJZC2hqYYjWa8g4KQOaquB2Z+tf7qsH5FS63fvCoX+eVA==}
     peerDependencies:
@@ -544,6 +559,9 @@ packages:
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
+
+  '@types/morgan@1.9.9':
+    resolution: {integrity: sha512-iRYSDKVaC6FkGSpEVVIvrRGw0DfJMiQzIn3qr2G5B3C//AWkulhXgaBd7tS9/J79GWSYMTHGs7PfI5b3Y8m+RQ==}
 
   '@types/node@20.12.12':
     resolution: {integrity: sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==}
@@ -1823,6 +1841,14 @@ snapshots:
 
   '@tanstack/query-core@5.36.1': {}
 
+  '@tanstack/query-devtools@5.51.1': {}
+
+  '@tanstack/react-query-devtools@5.51.1(@tanstack/react-query@5.36.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-devtools': 5.51.1
+      '@tanstack/react-query': 5.36.1(react@18.3.1)
+      react: 18.3.1
+
   '@tanstack/react-query@5.36.1(react@18.3.1)':
     dependencies:
       '@tanstack/query-core': 5.36.1
@@ -1837,6 +1863,10 @@ snapshots:
   '@tanstack/virtual-core@3.5.0': {}
 
   '@types/estree@1.0.5': {}
+
+  '@types/morgan@1.9.9':
+    dependencies:
+      '@types/node': 20.12.12
 
   '@types/node@20.12.12':
     dependencies:

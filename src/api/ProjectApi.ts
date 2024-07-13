@@ -19,9 +19,7 @@ class Project {
 			const { data } = await api.post<string>('/projects', formData);
 			return data;
 		} catch (err) {
-			if (isAxiosError(err)) {
-				return Project.handleAxiosError(err);
-			}
+			if (isAxiosError(err)) Project.handleAxiosError(err);
 			throw new Error('Error al crear el proyecto');
 		}
 	}
@@ -35,60 +33,63 @@ class Project {
 			}
 			return response.data;
 		} catch (err) {
-			if (isAxiosError(err)) {
-				return Project.handleAxiosError(err);
-			}
-			if (err instanceof ZodError) {
-				return Project.handleZodError(err);
-			}
+			if (isAxiosError(err)) Project.handleAxiosError(err);
+			if (err instanceof ZodError) Project.handleZodError(err);
 			throw new Error('Error al obtener los proyectos');
 		}
 	}
 
 	static async getProjectById(id: TProject['_id']) {
 		try {
-			const { data } = await api(`/projects/${id}`);
+			const url = `/projects/${id}`;
+			const { data } = await api(url);
 			const result = ProjectSchema.safeParse(data);
 			if (!result.success) {
 				throw result.error;
 			}
 			return result.data;
 		} catch (err) {
-			if (isAxiosError(err)) {
-				return Project.handleAxiosError(err);
-			}
-			if (err instanceof ZodError) {
-				return Project.handleZodError(err);
-			}
+			if (isAxiosError(err)) Project.handleAxiosError(err);
+			if (err instanceof ZodError) Project.handleZodError(err);
 			throw new Error('Error al obtener el proyecto');
 		}
 	}
 
 	static async updateProject({ id, formData }: UpdateProjectParams) {
 		try {
-			const { data } = await api.put<string>(`/projects/${id}`, formData);
+			const url = `/projects/${id}`;
+			const { data } = await api.put<string>(url, formData);
 			return data;
 		} catch (err) {
-			if (isAxiosError(err)) {
-				return Project.handleAxiosError(err);
-			}
+			if (isAxiosError(err)) Project.handleAxiosError(err);
 			throw new Error('Error al obtener el proyecto');
 		}
 	}
 
-	private static handleAxiosError(err: AxiosError<unknown, unknown>) {
-		if (err.response && (err.response.data as ErrorResponse).errors) {
-			const errorsStr = (err.response.data as ErrorResponse).errors
-				.map((e: { msg: string }) => e.msg)
-				.join(', ');
-			const messageError = `${(err.response.data as ErrorResponse).errors.length > 1 ? 'Errores' : 'Error'}: ${errorsStr}.`;
-			throw new Error(messageError);
+	static async deleteProject(id: TProject['_id']) {
+		try {
+			const url = `/projects/${id}`;
+			const { data } = await api.delete<string>(url);
+			return data;
+		} catch (err) {
+			if (isAxiosError(err)) Project.handleAxiosError(err);
+			if (err instanceof ZodError) Project.handleZodError(err);
+			throw new Error('Error al obtener el proyecto');
 		}
 	}
 
-	private static handleZodError(err: ZodError) {
-		const errorsStr = err.errors.map((e) => e.message).join(', ');
-		throw new Error(`Error de validación de datos: ${errorsStr}.`);
+	private static handleAxiosError(error: AxiosError<unknown, unknown>) {
+		if (error.response && (error.response.data as ErrorResponse).errors) {
+			const errorMessage = (error.response.data as ErrorResponse).errors
+				.map((e) => e.msg)
+				.join(', ');
+			throw new Error(`Errores: ${errorMessage}`);
+		}
+	}
+
+	private static handleZodError(error: ZodError) {
+		const errorMessage = error.errors.map((e) => e.message).join(', ');
+		throw new Error(`Error de validación de datos: ${errorMessage}.`);
 	}
 }
 
