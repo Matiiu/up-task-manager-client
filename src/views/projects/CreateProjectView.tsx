@@ -2,28 +2,29 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import ProjectForm from 'sections/projects/ProjectForm';
+import ProjectForm from '@/components/projects/ProjectForm';
 import type { ProjectFormData } from '@/types/index';
 import Project from '@/api/ProjectApi';
+import SubmitDisplayButton from '@/components/SubmitDisplayButton';
+
+const initialValues: ProjectFormData = {
+	projectName: '',
+	clientName: '',
+	description: '',
+};
 
 function CreateProjectView() {
 	const navigate = useNavigate();
 	const { mutate } = useMutation({
 		mutationFn: Project.createProject,
 		onSuccess: (data) => {
-			typeof data === 'string' && toast.success(data);
+			toast.success(data);
 			navigate('/');
 		},
-		onError: (err) => {
-			toast.error(err.message);
+		onError: (e) => {
+			toast.error(e.message);
 		},
 	});
-
-	const initialValues: ProjectFormData = {
-		projectName: '',
-		clientName: '',
-		description: '',
-	};
 
 	const {
 		register,
@@ -58,11 +59,7 @@ function CreateProjectView() {
 						register={register}
 						errors={errors}
 					/>
-					<input
-						type='submit'
-						value='Crear Proyecto'
-						className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors duration-300 ease-in-out'
-					/>
+					<SubmitDisplayButton label='Crear Proyecto' />
 				</form>
 			</div>
 		</>

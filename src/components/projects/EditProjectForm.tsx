@@ -6,6 +6,7 @@ import type { ProjectFormData, Project as TProject } from '@/types/index';
 import ProjectForm from './ProjectForm';
 import Project from '@/api/ProjectApi';
 import { toast } from 'react-toastify';
+import SubmitDisplayButton from '../SubmitDisplayButton';
 
 type EditProjectFormProps = {
 	projectId: TProject['_id'];
@@ -69,11 +70,7 @@ function EditProjectForm({ projectId, project }: EditProjectFormProps) {
 						register={register}
 						errors={errors}
 					/>
-					<input
-						type='submit'
-						value='Guardar Cambios'
-						className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors duration-300 ease-in-out'
-					/>
+					<SubmitDisplayButton label='Guardar Cambios' />
 				</form>
 			</div>
 		</>

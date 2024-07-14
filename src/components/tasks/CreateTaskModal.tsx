@@ -1,12 +1,55 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 
-function AddTaskModal() {
+import type { TaskFormData } from '@/types/index';
+import SubmitDisplayButton from '../SubmitDisplayButton';
+import TaskForm from './TaskForm';
+import Task from '@/api/TaskApi';
+import { toast } from 'react-toastify';
+
+const initialTaskValues: TaskFormData = {
+	name: '',
+	description: '',
+};
+
+function CreateTaskModal() {
+	const navigate = useNavigate();
+
+	// Read if modal exists
 	const location = useLocation();
 	const queryParams = new URLSearchParams(location.search);
 	const hasTask = !!queryParams.get('newTask');
-	const navigate = useNavigate();
+
+	// Get projectId
+	const { projectId } = useParams();
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm({ defaultValues: initialTaskValues });
+
+	const { mutate } = useMutation({
+		mutationFn: Task.createTask,
+		onError: (e) => {
+			toast.error(e.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data);
+			reset();
+			navigate({ search: '' });
+		},
+	});
+
+	const handleCreateTask = (formData: TaskFormData) => {
+		mutate({
+			formData,
+			projectId: String(projectId),
+		});
+	};
 
 	return (
 		<>
@@ -55,6 +98,18 @@ function AddTaskModal() {
 										Llena el formulario y crea {''}
 										<span className='text-fuchsia-600'>una tarea</span>
 									</p>
+
+									<form
+										className='mt-10 space-y-3'
+										noValidate
+										onSubmit={handleSubmit(handleCreateTask)}
+									>
+										<TaskForm
+											errors={errors}
+											register={register}
+										/>
+										<SubmitDisplayButton label='Crear Tarea' />
+									</form>
 								</Dialog.Panel>
 							</Transition.Child>
 						</div>
@@ -65,4 +120,4 @@ function AddTaskModal() {
 	);
 }
 
-export default AddTaskModal;
+export default CreateTaskModal;

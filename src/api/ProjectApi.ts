@@ -44,9 +44,8 @@ class Project {
 			const url = `/projects/${id}`;
 			const { data } = await api(url);
 			const result = ProjectSchema.safeParse(data);
-			if (!result.success) {
-				throw result.error;
-			}
+			if (!result.success) throw result.error;
+
 			return result.data;
 		} catch (err) {
 			if (isAxiosError(err)) Project.handleAxiosError(err);
