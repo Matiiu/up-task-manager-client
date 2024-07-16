@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import Project from '@/api/ProjectApi';
 import CreateTaskModal from '@/components/tasks/CreateTaskModal';
 import TaskList from '../../components/tasks/TaskList';
+import EditTaskData from '@/components/tasks/EditTaskData';
 
 function DetailsProjectView() {
 	const { projectId } = useParams();
@@ -28,7 +29,7 @@ function DetailsProjectView() {
 				<nav className='my-5 flex gap-3'>
 					<button
 						className='bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors'
-						onClick={() => navigate(`?newTask=true`)}
+						onClick={() => navigate(`?createTask=true`)}
 					>
 						Agregar Tarea
 					</button>
@@ -37,6 +38,7 @@ function DetailsProjectView() {
 				<TaskList tasks={data.tasks} />
 
 				<CreateTaskModal />
+				<EditTaskData />
 			</>
 		);
 }

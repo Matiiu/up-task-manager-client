@@ -8,9 +8,9 @@ function AppLayout() {
 	return (
 		<>
 			<HeaderView />
-			<section className='max-w-screen-2xl mx-auto mt-10 p-5'>
+			<div className='max-w-screen-2xl mx-auto mt-10 p-5'>
 				<Outlet />
-			</section>
+			</div>
 			<FooterView />
 			<ToastContainer
 				pauseOnHover={false}

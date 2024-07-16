@@ -4,10 +4,11 @@ import Project from '@/api/ProjectApi';
 import EditProjectForm from '@/components/projects/EditProjectForm';
 
 function EditProjectView() {
-	const { projectId } = useParams();
+	const params = useParams();
+	const projectId = params.projectId!;
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ['editProject', projectId],
-		queryFn: () => Project.getProjectById(String(projectId)),
+		queryFn: () => Project.getProjectById(projectId),
 		retry: false,
 	});
 
@@ -15,7 +16,7 @@ function EditProjectView() {
 
 	if (isError) return <Navigate to='/404' />;
 
-	if (data && projectId)
+	if (data)
 		return (
 			<EditProjectForm
 				project={data}

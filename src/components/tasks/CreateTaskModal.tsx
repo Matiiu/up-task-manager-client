@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import type { TaskFormData } from '@/types/index';
 import SubmitDisplayButton from '../SubmitDisplayButton';
@@ -21,7 +21,7 @@ function CreateTaskModal() {
 	// Read if modal exists
 	const location = useLocation();
 	const queryParams = new URLSearchParams(location.search);
-	const hasTask = !!queryParams.get('newTask');
+	const hasCreateTask = !!queryParams.get('createTask');
 
 	// Get projectId
 	const { projectId } = useParams();
@@ -32,12 +32,15 @@ function CreateTaskModal() {
 		formState: { errors },
 	} = useForm({ defaultValues: initialTaskValues });
 
+	const queryClient = useQueryClient();
+
 	const { mutate } = useMutation({
 		mutationFn: Task.createTask,
 		onError: (e) => {
 			toast.error(e.message);
 		},
 		onSuccess: (data) => {
+			queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
 			toast.success(data);
 			reset();
 			navigate({ search: '' });
@@ -55,7 +58,7 @@ function CreateTaskModal() {
 		<>
 			<Transition
 				appear
-				show={hasTask}
+				show={hasCreateTask}
 				as={Fragment}
 			>
 				<Dialog
