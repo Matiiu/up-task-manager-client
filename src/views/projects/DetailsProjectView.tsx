@@ -6,10 +6,11 @@ import TaskList from '../../components/tasks/TaskList';
 import EditTaskData from '@/components/tasks/EditTaskData';
 
 function DetailsProjectView() {
-	const { projectId } = useParams();
+	const params = useParams();
+	const projectId = params.projectId!;
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ['editProject', projectId],
-		queryFn: () => Project.getProjectById(String(projectId)),
+		queryFn: () => Project.getProjectById(projectId),
 		retry: false,
 	});
 	const navigate = useNavigate();

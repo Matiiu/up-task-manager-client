@@ -32,7 +32,7 @@ function EditProjectForm({ projectId, project }: EditProjectFormProps) {
 		onSuccess: (data) => {
 			queryClient.invalidateQueries({ queryKey: ['projects'] });
 			queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
-			typeof data === 'string' && toast.success(data);
+			toast.success(data);
 			navigate('/');
 		},
 	});

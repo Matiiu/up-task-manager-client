@@ -20,7 +20,13 @@ function EditTaskData() {
 
 	if (isError) return <Navigate to='/404' />;
 
-	if (data) return <EditTaskModal />;
+	if (data)
+		return (
+			<EditTaskModal
+				task={data}
+				taskId={taskId}
+			/>
+		);
 }
 
 export default EditTaskData;

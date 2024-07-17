@@ -9,9 +9,9 @@ type ErrorResponse = {
 };
 
 type TaskApi = {
-	formData: TaskFormData;
 	projectId: Project['_id'];
 	taskId: TTask['_id'];
+	formData: TaskFormData;
 };
 
 class Task {
@@ -36,6 +36,22 @@ class Task {
 		try {
 			const url = `/projects/${projectId}/tasks/${taskId}`;
 			const { data } = await api(url);
+			return data;
+		} catch (e) {
+			if (isAxiosError(e)) Task.handleAxiosError(e);
+			if (e instanceof ZodError) Task.handleZodError(e);
+			throw new Error('Error al obtener la tarea');
+		}
+	}
+
+	static async updateTask({
+		projectId,
+		taskId,
+		formData,
+	}: Pick<TaskApi, 'projectId' | 'taskId' | 'formData'>) {
+		try {
+			const url = `/projects/${projectId}/tasks/${taskId}`;
+			const { data } = await api.put<string>(url, formData);
 			return data;
 		} catch (e) {
 			if (isAxiosError(e)) Task.handleAxiosError(e);

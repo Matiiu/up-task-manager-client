@@ -24,7 +24,8 @@ function CreateTaskModal() {
 	const hasCreateTask = !!queryParams.get('createTask');
 
 	// Get projectId
-	const { projectId } = useParams();
+	const params = useParams();
+	const projectId = params.projectId!;
 	const {
 		register,
 		handleSubmit,
@@ -50,7 +51,7 @@ function CreateTaskModal() {
 	const handleCreateTask = (formData: TaskFormData) => {
 		mutate({
 			formData,
-			projectId: String(projectId),
+			projectId,
 		});
 	};
 
