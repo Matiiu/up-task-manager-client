@@ -5,3 +5,4 @@ node_modules
 eslint.config.mjs
 pnpm-lock.yaml
 coverage
+*.html
