@@ -18,8 +18,8 @@ class Project {
 		try {
 			const { data } = await api.post<string>('/projects', formData);
 			return data;
-		} catch (err) {
-			if (isAxiosError(err)) Project.handleAxiosError(err);
+		} catch (error) {
+			if (isAxiosError(error)) Project.handleAxiosError(error);
 			throw new Error('Error al crear el proyecto');
 		}
 	}
@@ -32,9 +32,9 @@ class Project {
 				throw response.error;
 			}
 			return response.data;
-		} catch (err) {
-			if (isAxiosError(err)) Project.handleAxiosError(err);
-			if (err instanceof ZodError) Project.handleZodError(err);
+		} catch (error) {
+			if (isAxiosError(error)) Project.handleAxiosError(error);
+			if (error instanceof ZodError) Project.handleZodError(error);
 			throw new Error('Error al obtener los proyectos');
 		}
 	}
@@ -47,9 +47,9 @@ class Project {
 			if (!result.success) throw result.error;
 
 			return result.data;
-		} catch (err) {
-			if (isAxiosError(err)) Project.handleAxiosError(err);
-			if (err instanceof ZodError) Project.handleZodError(err);
+		} catch (error) {
+			if (isAxiosError(error)) Project.handleAxiosError(error);
+			if (error instanceof ZodError) Project.handleZodError(error);
 			throw new Error('Error al obtener el proyecto');
 		}
 	}
@@ -59,8 +59,8 @@ class Project {
 			const url = `/projects/${id}`;
 			const { data } = await api.put<string>(url, formData);
 			return data;
-		} catch (err) {
-			if (isAxiosError(err)) Project.handleAxiosError(err);
+		} catch (error) {
+			if (isAxiosError(error)) Project.handleAxiosError(error);
 			throw new Error('Error al obtener el proyecto');
 		}
 	}
@@ -70,9 +70,9 @@ class Project {
 			const url = `/projects/${id}`;
 			const { data } = await api.delete<string>(url);
 			return data;
-		} catch (err) {
-			if (isAxiosError(err)) Project.handleAxiosError(err);
-			if (err instanceof ZodError) Project.handleZodError(err);
+		} catch (error) {
+			if (isAxiosError(error)) Project.handleAxiosError(error);
+			if (error instanceof ZodError) Project.handleZodError(error);
 			throw new Error('Error al obtener el proyecto');
 		}
 	}

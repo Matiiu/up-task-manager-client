@@ -23,8 +23,8 @@ class Task {
 			const url = `/projects/${projectId}/tasks`;
 			const { data } = await api.post<string>(url, formData);
 			return data;
-		} catch (e) {
-			if (isAxiosError(e)) Task.handleAxiosError(e);
+		} catch (error) {
+			if (isAxiosError(error)) Task.handleAxiosError(error);
 			throw new Error('Error al crear la tarea');
 		}
 	}
@@ -37,9 +37,9 @@ class Task {
 			const url = `/projects/${projectId}/tasks/${taskId}`;
 			const { data } = await api(url);
 			return data;
-		} catch (e) {
-			if (isAxiosError(e)) Task.handleAxiosError(e);
-			if (e instanceof ZodError) Task.handleZodError(e);
+		} catch (error) {
+			if (isAxiosError(error)) Task.handleAxiosError(error);
+			if (error instanceof ZodError) Task.handleZodError(error);
 			throw new Error('Error al obtener la tarea');
 		}
 	}
@@ -53,9 +53,9 @@ class Task {
 			const url = `/projects/${projectId}/tasks/${taskId}`;
 			const { data } = await api.put<string>(url, formData);
 			return data;
-		} catch (e) {
-			if (isAxiosError(e)) Task.handleAxiosError(e);
-			if (e instanceof ZodError) Task.handleZodError(e);
+		} catch (error) {
+			if (isAxiosError(error)) Task.handleAxiosError(error);
+			if (error instanceof ZodError) Task.handleZodError(error);
 			throw new Error('Error al obtener la tarea');
 		}
 	}
