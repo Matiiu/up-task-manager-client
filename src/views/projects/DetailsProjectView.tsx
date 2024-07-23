@@ -1,15 +1,23 @@
+import { lazy, Suspense, memo } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import Project from '@/api/ProjectApi';
-import CreateTaskModal from '@/components/tasks/CreateTaskModal';
 import TaskList from '../../components/tasks/TaskList';
-import EditTaskData from '@/components/tasks/EditTaskData';
+
+const MemoizedTaskList = memo(TaskList);
+const LazyCreateTaskModal = lazy(
+	() => import('@/components/tasks/CreateTaskModal'),
+);
+const LazyEditTaskData = lazy(() => import('@/components/tasks/EditTaskData'));
+const LazyDetailsTaskModal = lazy(
+	() => import('@/components/tasks/DetailsTaskModal'),
+);
 
 function DetailsProjectView() {
 	const params = useParams();
 	const projectId = params.projectId!;
 	const { data, isLoading, isError } = useQuery({
-		queryKey: ['editProject', projectId],
+		queryKey: ['project', projectId],
 		queryFn: () => Project.getProjectById(projectId),
 		retry: false,
 	});
@@ -36,10 +44,19 @@ function DetailsProjectView() {
 					</button>
 				</nav>
 
-				<TaskList tasks={data.tasks} />
+				<MemoizedTaskList tasks={data.tasks} />
 
-				<CreateTaskModal />
-				<EditTaskData />
+				<Suspense fallback='cargando...'>
+					<LazyCreateTaskModal />
+				</Suspense>
+
+				<Suspense fallback='cargando...'>
+					<LazyEditTaskData />
+				</Suspense>
+
+				<Suspense fallback='cargando detalle...'>
+					<LazyDetailsTaskModal />
+				</Suspense>
 			</>
 		);
 }

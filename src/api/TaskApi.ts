@@ -60,6 +60,21 @@ class Task {
 		}
 	}
 
+	static async deleteTask({
+		projectId,
+		taskId,
+	}: Pick<TaskApi, 'projectId' | 'taskId'>) {
+		try {
+			const url = `/projects/${projectId}/tasks/${taskId}`;
+			const { data } = await api.delete<string>(url);
+			return data;
+		} catch (error) {
+			if (isAxiosError(error)) Task.handleAxiosError(error);
+			if (error instanceof ZodError) Task.handleZodError(error);
+			throw new Error('Error al obtener la tarea');
+		}
+	}
+
 	private static handleAxiosError(error: AxiosError<unknown, unknown>) {
 		if (error.response && (error.response.data as ErrorResponse).errors) {
 			const errorMessage = (error.response.data as ErrorResponse).errors
