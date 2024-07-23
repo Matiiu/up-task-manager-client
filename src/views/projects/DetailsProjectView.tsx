@@ -46,15 +46,9 @@ function DetailsProjectView() {
 
 				<MemoizedTaskList tasks={data.tasks} />
 
-				<Suspense fallback='cargando...'>
+				<Suspense fallback='Cargando...'>
 					<LazyCreateTaskModal />
-				</Suspense>
-
-				<Suspense fallback='cargando...'>
 					<LazyEditTaskData />
-				</Suspense>
-
-				<Suspense fallback='cargando detalle...'>
 					<LazyDetailsTaskModal />
 				</Suspense>
 			</>
