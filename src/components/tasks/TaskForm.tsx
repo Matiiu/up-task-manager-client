@@ -24,6 +24,9 @@ function TaskForm({ errors, register }: TaskFormProps) {
 					className='w-full p-3  border-gray-300 border'
 					{...register('name', {
 						required: 'El nombre de la tarea es obligatorio',
+						validate: (value) =>
+							value?.trim().length > 0 ||
+							'El nombre de la tarea es obligatorio',
 					})}
 				/>
 				{errors.name && <ErrorMsg>{errors.name.message}</ErrorMsg>}
@@ -42,6 +45,9 @@ function TaskForm({ errors, register }: TaskFormProps) {
 					className='w-full p-3  border-gray-300 border'
 					{...register('description', {
 						required: 'La descripción de la tarea es obligatoria',
+						validate: (value) =>
+							value?.trim().length > 0 ||
+							'La descripción de la tarea es obligatoria',
 					})}
 				/>
 				{errors.description && (

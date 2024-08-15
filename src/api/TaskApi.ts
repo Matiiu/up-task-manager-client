@@ -3,6 +3,8 @@ import { ZodError } from 'zod';
 
 import api from '@/lib/axios';
 import type { TaskFormData, Project, Task as TTask } from '@/types/index';
+import { TaskSchema } from '@/schemas/index';
+import { normalizeText } from '@/utils/index';
 
 type ErrorResponse = {
 	errors: Array<{ msg: string }>;
@@ -12,6 +14,7 @@ type TaskApi = {
 	projectId: Project['_id'];
 	taskId: TTask['_id'];
 	formData: TaskFormData;
+	status: TTask['status'];
 };
 
 class Task {
@@ -19,6 +22,10 @@ class Task {
 		formData,
 		projectId,
 	}: Pick<TaskApi, 'formData' | 'projectId'>) {
+		// Sanitize data
+		formData.name = normalizeText(formData.name);
+		formData.description = normalizeText(formData.description);
+
 		try {
 			const url = `/projects/${projectId}/tasks`;
 			const { data } = await api.post<string>(url, formData);
@@ -36,7 +43,12 @@ class Task {
 		try {
 			const url = `/projects/${projectId}/tasks/${taskId}`;
 			const { data } = await api(url);
-			return data;
+			const response = TaskSchema.safeParse(data);
+
+			if (!response.success) {
+				throw response.error;
+			}
+			return response.data;
 		} catch (error) {
 			if (isAxiosError(error)) Task.handleAxiosError(error);
 			if (error instanceof ZodError) Task.handleZodError(error);
@@ -67,6 +79,22 @@ class Task {
 		try {
 			const url = `/projects/${projectId}/tasks/${taskId}`;
 			const { data } = await api.delete<string>(url);
+			return data;
+		} catch (error) {
+			if (isAxiosError(error)) Task.handleAxiosError(error);
+			if (error instanceof ZodError) Task.handleZodError(error);
+			throw new Error('Error al obtener la tarea');
+		}
+	}
+
+	static async updateStatusTask({
+		projectId,
+		taskId,
+		status,
+	}: Pick<TaskApi, 'projectId' | 'taskId' | 'status'>) {
+		try {
+			const url = `/projects/${projectId}/tasks/${taskId}/status`;
+			const { data } = await api.post<string>(url, { status });
 			return data;
 		} catch (error) {
 			if (isAxiosError(error)) Task.handleAxiosError(error);

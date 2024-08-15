@@ -27,7 +27,7 @@ function DetailsProjectView() {
 
 	if (isError) return <Navigate to='/404' />;
 
-	if (data)
+	if (data) {
 		return (
 			<>
 				<h1 className='text-5xl font-black'>{data.projectName}</h1>
@@ -53,6 +53,7 @@ function DetailsProjectView() {
 				</Suspense>
 			</>
 		);
+	}
 }
 
 export default DetailsProjectView;

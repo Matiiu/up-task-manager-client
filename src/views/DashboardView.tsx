@@ -8,7 +8,7 @@ import Project from '@/api/ProjectApi';
 import { toast } from 'react-toastify';
 
 function DashboardView() {
-	const { data, isLoading, isError } = useQuery({
+	const { data, isLoading, isError, error } = useQuery({
 		queryKey: ['projects'],
 		queryFn: Project.getProjects,
 	});
@@ -16,8 +16,8 @@ function DashboardView() {
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
 		mutationFn: Project.deleteProject,
-		onError: (e) => {
-			toast.error(e.message);
+		onError: (error) => {
+			toast.error(error.message);
 		},
 		onSuccess: (data) => {
 			toast.success(data);
@@ -28,10 +28,9 @@ function DashboardView() {
 
 	if (isLoading) return 'Cargando...';
 
-	if (isError)
-		return <p>Ha ocurrido un error inesperado, por favor intente más tarde</p>;
+	if (isError) return <p>{error.message}</p>;
 
-	if (data)
+	if (data) {
 		return (
 			<>
 				<h1 className='text-5xl font-black'>Mis Proyectos</h1>
@@ -140,6 +139,7 @@ function DashboardView() {
 				)}
 			</>
 		);
+	}
 }
 
 export default DashboardView;

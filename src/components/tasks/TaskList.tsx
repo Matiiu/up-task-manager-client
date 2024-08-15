@@ -1,6 +1,7 @@
-import { Task } from '@/types/index';
+import type { Task, TaskStatus } from '@/types/index';
 import TaskCard from './TaskCard';
-import { statusTranslation, statusStyle } from '@/utils/index';
+import { statusStyle } from '@/constants/index';
+import { statusTranslations } from '@/locales/es';
 
 type TaskListProps = {
 	tasks: Task[];
@@ -45,9 +46,9 @@ function TaskList({ tasks }: TaskListProps) {
 						className='min-w-[300px] 2xl:min-w-0 2xl:w-1/5'
 					>
 						<h3
-							className={`capitalize text-xl font-light border border-slate-300 bg-white p-3 border-t-8 ${statusStyle[status]}`}
+							className={`capitalize text-xl font-light border border-slate-300 bg-white p-3 border-t-8 ${statusStyle[status as TaskStatus]}`}
 						>
-							{statusTranslation[status]}
+							{statusTranslations[status as TaskStatus]}
 						</h3>
 						<ul className='mt-5 space-y-5'>
 							{tasks.length === 0 ? (

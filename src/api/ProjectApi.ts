@@ -8,7 +8,7 @@ type ErrorResponse = {
 	errors: Array<{ msg: string }>;
 };
 
-type UpdateProjectParams = {
+type ProjectParams = {
 	id: TProject['_id'];
 	formData: ProjectFormData;
 };
@@ -54,7 +54,10 @@ class Project {
 		}
 	}
 
-	static async updateProject({ id, formData }: UpdateProjectParams) {
+	static async updateProject({
+		id,
+		formData,
+	}: Pick<ProjectParams, 'id' | 'formData'>) {
 		try {
 			const url = `/projects/${id}`;
 			const { data } = await api.put<string>(url, formData);

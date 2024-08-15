@@ -13,6 +13,8 @@ export const TaskSchema = z.object({
 	name: z.string(),
 	description: z.string(),
 	project: z.string(),
+	createdAt: z.string(),
+	updatedAt: z.string(),
 	status: taskStatusSchema,
 });
 // ********** End Task **********
@@ -23,14 +25,9 @@ export const ProjectSchema = z.object({
 	projectName: z.string(),
 	clientName: z.string(),
 	description: z.string(),
+	createdAt: z.string(),
+	updatedAt: z.string(),
 	tasks: z.array(TaskSchema),
-});
-
-export const ProjectPrueba = z.object({
-	_id: z.number(),
-	projectName: z.number(),
-	clientName: z.number(),
-	description: z.number(),
 });
 
 export const DashboardProjectSchema = z.array(
