@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -17,13 +17,8 @@ const initialTaskValues: TaskFormData = {
 
 function CreateTaskModal() {
 	const navigate = useNavigate();
-
-	// Read if modal exists
-	const location = useLocation();
 	const queryParams = new URLSearchParams(location.search);
 	const hasCreateTask = !!queryParams.get('createTask');
-
-	// Get projectId
 	const params = useParams();
 	const projectId = params.projectId!;
 	const {
