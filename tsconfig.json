@@ -18,6 +18,7 @@
       "@/utils/*": ["utils/*"],
       "@/locales/*": ["locales/*"],
       "@/constants/*": ["constants/*"],
+      "@/routes": ["routes/*"],
     },
 
     /* Bundler mode */
