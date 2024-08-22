@@ -3,7 +3,7 @@ import { ZodError } from 'zod';
 
 import api from '@/lib/axios';
 import type { TaskFormData, Project, Task as TTask } from '@/types/index';
-import { TaskSchema } from '@/schemas/index';
+import { taskSchema } from '@/schemas/index';
 import { normalizeText } from '@/utils/index';
 
 type ErrorResponse = {
@@ -43,7 +43,7 @@ class Task {
 		try {
 			const url = `/projects/${projectId}/tasks/${taskId}`;
 			const { data } = await api(url);
-			const response = TaskSchema.safeParse(data);
+			const response = taskSchema.safeParse(data);
 
 			if (!response.success) {
 				throw response.error;

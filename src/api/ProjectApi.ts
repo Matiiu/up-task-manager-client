@@ -1,6 +1,6 @@
 import api from '@/lib/axios';
 import { AxiosError, isAxiosError } from 'axios';
-import { ProjectSchema, DashboardProjectSchema } from '../schemas';
+import { projectSchema, dashboardProjectSchema } from '../schemas';
 import { ZodError } from 'zod';
 import type { Project as TProject, ProjectFormData } from '@/types/index';
 
@@ -27,7 +27,7 @@ class Project {
 	static async getProjects() {
 		try {
 			const { data } = await api('/projects');
-			const response = DashboardProjectSchema.safeParse(data);
+			const response = dashboardProjectSchema.safeParse(data);
 			if (!response.success) {
 				throw response.error;
 			}
@@ -43,7 +43,7 @@ class Project {
 		try {
 			const url = `/projects/${id}`;
 			const { data } = await api(url);
-			const result = ProjectSchema.safeParse(data);
+			const result = projectSchema.safeParse(data);
 			if (!result.success) throw result.error;
 
 			return result.data;

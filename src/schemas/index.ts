@@ -8,7 +8,7 @@ export const taskStatusSchema = z.enum([
 	'underReview',
 	'completed',
 ]);
-export const TaskSchema = z.object({
+export const taskSchema = z.object({
 	_id: z.string(),
 	name: z.string(),
 	description: z.string(),
@@ -20,18 +20,18 @@ export const TaskSchema = z.object({
 // ********** End Task **********
 
 // ********** Star Project **********
-export const ProjectSchema = z.object({
+export const projectSchema = z.object({
 	_id: z.string(),
 	projectName: z.string(),
 	clientName: z.string(),
 	description: z.string(),
 	createdAt: z.string(),
 	updatedAt: z.string(),
-	tasks: z.array(TaskSchema),
+	tasks: z.array(taskSchema),
 });
 
-export const DashboardProjectSchema = z.array(
-	ProjectSchema.pick({
+export const dashboardProjectSchema = z.array(
+	projectSchema.pick({
 		_id: true,
 		projectName: true,
 		clientName: true,
