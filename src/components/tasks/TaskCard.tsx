@@ -5,7 +5,7 @@ import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { Task as TTask } from '@/types/index';
 import { toast } from 'react-toastify';
-import Task from '@/api/TaskApi';
+import Task from '@/api/TaskAPI';
 
 type TaskCardProps = {
 	task: TTask;

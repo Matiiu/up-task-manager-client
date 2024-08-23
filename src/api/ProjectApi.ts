@@ -2,24 +2,24 @@ import api from '@/lib/axios';
 import { AxiosError, isAxiosError } from 'axios';
 import { projectSchema, dashboardProjectSchema } from '../schemas';
 import { ZodError } from 'zod';
-import type { Project as TProject, ProjectFormData } from '@/types/index';
+import type { Project, ProjectFormData } from '@/types/index';
 
 type ErrorResponse = {
 	errors: Array<{ msg: string }>;
 };
 
 type ProjectParams = {
-	id: TProject['_id'];
+	id: Project['_id'];
 	formData: ProjectFormData;
 };
 
-class Project {
+class ProjectAPI {
 	static async createProject(formData: ProjectFormData) {
 		try {
 			const { data } = await api.post<string>('/projects', formData);
 			return data;
 		} catch (error) {
-			if (isAxiosError(error)) Project.handleAxiosError(error);
+			if (isAxiosError(error)) ProjectAPI.handleAxiosError(error);
 			throw new Error('Error al crear el proyecto');
 		}
 	}
@@ -33,13 +33,13 @@ class Project {
 			}
 			return response.data;
 		} catch (error) {
-			if (isAxiosError(error)) Project.handleAxiosError(error);
-			if (error instanceof ZodError) Project.handleZodError(error);
+			if (isAxiosError(error)) ProjectAPI.handleAxiosError(error);
+			if (error instanceof ZodError) ProjectAPI.handleZodError(error);
 			throw new Error('Error al obtener los proyectos');
 		}
 	}
 
-	static async getProjectById(id: TProject['_id']) {
+	static async getProjectById(id: Project['_id']) {
 		try {
 			const url = `/projects/${id}`;
 			const { data } = await api(url);
@@ -48,8 +48,8 @@ class Project {
 
 			return result.data;
 		} catch (error) {
-			if (isAxiosError(error)) Project.handleAxiosError(error);
-			if (error instanceof ZodError) Project.handleZodError(error);
+			if (isAxiosError(error)) ProjectAPI.handleAxiosError(error);
+			if (error instanceof ZodError) ProjectAPI.handleZodError(error);
 			throw new Error('Error al obtener el proyecto');
 		}
 	}
@@ -63,19 +63,19 @@ class Project {
 			const { data } = await api.put<string>(url, formData);
 			return data;
 		} catch (error) {
-			if (isAxiosError(error)) Project.handleAxiosError(error);
+			if (isAxiosError(error)) ProjectAPI.handleAxiosError(error);
 			throw new Error('Error al obtener el proyecto');
 		}
 	}
 
-	static async deleteProject(id: TProject['_id']) {
+	static async deleteProject(id: Project['_id']) {
 		try {
 			const url = `/projects/${id}`;
 			const { data } = await api.delete<string>(url);
 			return data;
 		} catch (error) {
-			if (isAxiosError(error)) Project.handleAxiosError(error);
-			if (error instanceof ZodError) Project.handleZodError(error);
+			if (isAxiosError(error)) ProjectAPI.handleAxiosError(error);
+			if (error instanceof ZodError) ProjectAPI.handleZodError(error);
 			throw new Error('Error al obtener el proyecto');
 		}
 	}
@@ -95,4 +95,4 @@ class Project {
 	}
 }
 
-export default Project;
+export default ProjectAPI;

@@ -4,18 +4,18 @@ import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import Project from '@/api/ProjectApi';
+import ProjectAPI from '@/api/ProjectAPI';
 import { toast } from 'react-toastify';
 
 function DashboardView() {
 	const { data, isLoading, isError, error } = useQuery({
 		queryKey: ['projects'],
-		queryFn: Project.getProjects,
+		queryFn: ProjectAPI.getProjects,
 	});
 
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
-		mutationFn: Project.deleteProject,
+		mutationFn: ProjectAPI.deleteProject,
 		onError: (error) => {
 			toast.error(error.message);
 		},

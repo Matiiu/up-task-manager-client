@@ -1,8 +1,8 @@
 import { lazy, Suspense, memo } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import Project from '@/api/ProjectApi';
-import TaskList from '../../components/tasks/TaskList';
+import ProjectAPI from '@/api/ProjectAPI';
+import TaskList from '@/components/tasks/TaskList';
 
 const MemoizedTaskList = memo(TaskList);
 const LazyCreateTaskModal = lazy(
@@ -18,7 +18,7 @@ function DetailsProjectView() {
 	const projectId = params.projectId!;
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ['project', projectId],
-		queryFn: () => Project.getProjectById(projectId),
+		queryFn: () => ProjectAPI.getProjectById(projectId),
 		retry: false,
 	});
 	const navigate = useNavigate();

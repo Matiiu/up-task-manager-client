@@ -2,14 +2,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type { ProjectFormData, Project as TProject } from '@/types/index';
+import type { ProjectFormData, Project } from '@/types/index';
 import ProjectForm from './ProjectForm';
-import Project from '@/api/ProjectApi';
+import ProjectAPI from '@/api/ProjectAPI';
 import { toast } from 'react-toastify';
 import SubmitDisplayButton from '../SubmitDisplayButton';
 
 type EditProjectFormProps = {
-	projectId: TProject['_id'];
+	projectId: Project['_id'];
 	project: ProjectFormData;
 };
 
@@ -25,7 +25,7 @@ function EditProjectForm({ projectId, project }: EditProjectFormProps) {
 	const queryClient = useQueryClient();
 
 	const { mutate } = useMutation({
-		mutationFn: Project.updateProject,
+		mutationFn: ProjectAPI.updateProject,
 		onError: (err) => {
 			toast.error(err.message);
 		},

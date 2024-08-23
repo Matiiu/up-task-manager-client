@@ -1,29 +1,45 @@
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 import { UserRegistrationForm } from '@/types/authTypes';
 import ErrorMsg from '@/components/ErrorMsg';
-import { Link } from 'react-router-dom';
+import AuthAPI from '@/api/AuthApi';
+import { toast } from 'react-toastify';
+import { PASSWORD_REGEX, EMAIL_REGEX } from '@/constants/authConstants';
 
-export default function RegisterView() {
-	const initialUserRegistrationFormValues: UserRegistrationForm = {
+function RegisterView() {
+	const initializedUserRegistrationForm = (): UserRegistrationForm => ({
 		name: '',
 		email: '',
 		password: '',
 		passwordConfirmation: '',
-	};
+	});
 
 	const {
 		register,
 		handleSubmit,
 		watch,
+		reset,
 		formState: { errors },
 	} = useForm<UserRegistrationForm>({
-		defaultValues: initialUserRegistrationFormValues,
+		defaultValues: initializedUserRegistrationForm(),
 	});
 
-	const password = watch('password');
+	const { mutate } = useMutation({
+		mutationFn: AuthAPI.createAccount,
+		onError: (error) => {
+			toast.error(error.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data);
+			reset();
+		},
+	});
+
+	const currentPassword = watch('password');
 
 	const handleRegister = (formData: UserRegistrationForm) => {
-		console.log(formData);
+		mutate({ formData });
 	};
 
 	return (
@@ -54,7 +70,7 @@ export default function RegisterView() {
 						{...register('email', {
 							required: 'El Email de registro es obligatorio',
 							pattern: {
-								value: /\S+@\S+\.\S+/,
+								value: EMAIL_REGEX,
 								message: 'E-mail no válido',
 							},
 						})}
@@ -88,6 +104,11 @@ export default function RegisterView() {
 								value: 8,
 								message: 'El Password debe ser mínimo de 8 caracteres',
 							},
+							pattern: {
+								value: PASSWORD_REGEX,
+								message:
+									'El Password debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial',
+							},
 						})}
 					/>
 					{errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
@@ -104,7 +125,7 @@ export default function RegisterView() {
 						{...register('passwordConfirmation', {
 							required: 'Repetir Password es obligatorio',
 							validate: (value) =>
-								value === password || 'Los Passwords no son iguales',
+								value === currentPassword || 'Los Passwords no son iguales',
 						})}
 					/>
 
@@ -131,3 +152,5 @@ export default function RegisterView() {
 		</>
 	);
 }
+
+export default RegisterView;

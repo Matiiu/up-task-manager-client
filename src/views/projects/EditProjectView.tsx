@@ -1,6 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import Project from '@/api/ProjectApi';
+import ProjectAPI from '@/api/ProjectAPI';
 import EditProjectForm from '@/components/projects/EditProjectForm';
 
 function EditProjectView() {
@@ -8,7 +8,7 @@ function EditProjectView() {
 	const projectId = params.projectId!;
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ['editProject', projectId],
-		queryFn: () => Project.getProjectById(projectId),
+		queryFn: () => ProjectAPI.getProjectById(projectId),
 		retry: false,
 	});
 

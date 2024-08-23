@@ -12,10 +12,7 @@ function AppLayout() {
 				<Outlet />
 			</div>
 			<FooterView />
-			<ToastContainer
-				pauseOnHover={false}
-				pauseOnFocusLoss={false}
-			/>
+			<ToastContainer pauseOnFocusLoss={false} />
 		</>
 	);
 }
