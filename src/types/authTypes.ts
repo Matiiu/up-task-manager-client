@@ -7,3 +7,5 @@ export type UserRegistrationForm = Pick<
 	Auth,
 	'name' | 'email' | 'password' | 'passwordConfirmation'
 >;
+export type ConfirmToken = Pick<Auth, 'token'>;
+export type RequestConfirmationTokenForm = Pick<Auth, 'email'>;

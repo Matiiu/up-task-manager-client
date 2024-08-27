@@ -2,9 +2,12 @@ import { AxiosError, isAxiosError } from 'axios';
 import { ZodError } from 'zod';
 import api from '@/lib/axios';
 import { UserRegistrationForm } from '@/types/authTypes';
+import type { Auth } from '@/types/authTypes';
 
 type AuthAPIPayload = {
-	formData: UserRegistrationForm;
+	userRegistrationForm: UserRegistrationForm;
+	token: Auth['token'];
+	email: Auth['email'];
 };
 
 type ErrorResponse = {
@@ -12,10 +15,43 @@ type ErrorResponse = {
 };
 
 class AuthAPI {
-	static createAccount = async (payload: Pick<AuthAPIPayload, 'formData'>) => {
+	static createAccount = async (
+		payload: Pick<AuthAPIPayload, 'userRegistrationForm'>,
+	) => {
 		try {
 			const uri = '/auth/create-account';
-			const { data } = await api.post<string>(uri, payload.formData);
+			const { data } = await api.post<string>(
+				uri,
+				payload.userRegistrationForm,
+			);
+			return data;
+		} catch (error) {
+			if (isAxiosError(error)) {
+				AuthAPI.handleAxiosError(error);
+			}
+			throw new Error('Error al crear la cuenta');
+		}
+	};
+
+	static confirmAccount = async (payload: Pick<AuthAPIPayload, 'token'>) => {
+		try {
+			const uri = '/auth/confirm-account';
+			const { data } = await api.post<string>(uri, { token: payload.token });
+			return data;
+		} catch (error) {
+			if (isAxiosError(error)) {
+				AuthAPI.handleAxiosError(error);
+			}
+			throw new Error('Error al crear la cuenta');
+		}
+	};
+
+	static requestConfirmationToken = async (
+		payload: Pick<AuthAPIPayload, 'email'>,
+	) => {
+		try {
+			const uri = '/auth/request-token';
+			const { data } = await api.post<string>(uri, { email: payload.email });
 			return data;
 		} catch (error) {
 			if (isAxiosError(error)) {

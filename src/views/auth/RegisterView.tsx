@@ -39,7 +39,7 @@ function RegisterView() {
 	const currentPassword = watch('password');
 
 	const handleRegister = (formData: UserRegistrationForm) => {
-		mutate({ formData });
+		mutate({ userRegistrationForm: formData });
 	};
 
 	return (
