@@ -1,28 +1,50 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { UserLoginForm } from '@/types/authTypes';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import type { UserLoginForm } from '@/types/authTypes';
 import ErrorMsg from '@/components/ErrorMsg';
+import AuthAPI from '@/api/AuthAPI';
+import { PASSWORD_REGEX, EMAIL_REGEX } from '@/constants/authConstants';
 
-export default function LoginView() {
-	const initialUserLoginFormValues: UserLoginForm = {
-		email: '',
-		password: '',
-	};
+const initializeUserLoginForm = (): UserLoginForm => ({
+	email: '',
+	password: '',
+});
+
+function LoginView() {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ defaultValues: initialUserLoginFormValues });
+	} = useForm({ defaultValues: initializeUserLoginForm() });
 
-	const handleLogin = (formData: UserLoginForm) => {
-		console.log(formData);
+	const { mutate } = useMutation({
+		mutationFn: AuthAPI.authenticateUser,
+		onError: (error) => {
+			toast.error(error.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data);
+		},
+	});
+
+	const handleLogin = (userLoginForm: UserLoginForm) => {
+		mutate({ userLoginForm });
 	};
 
 	return (
 		<>
+			<h1 className='text-5xl font-black text-white'>Iniciar Sesión</h1>
+			<p className='text-2xl font-light text-white mt-5'>
+				Comienza a planear tus proyectos {''}
+				<span className=' text-fuchsia-500 font-bold'>
+					iniciando sesión en este formulario
+				</span>
+			</p>
 			<form
 				onSubmit={handleSubmit(handleLogin)}
-				className='space-y-8 p-10 bg-white'
+				className='space-y-8 p-10 mt-10 bg-white'
 				noValidate
 			>
 				<div className='flex flex-col gap-5'>
@@ -36,7 +58,7 @@ export default function LoginView() {
 						{...register('email', {
 							required: 'El Email es obligatorio',
 							pattern: {
-								value: /\S+@\S+\.\S+/,
+								value: EMAIL_REGEX,
 								message: 'E-mail no válido',
 							},
 						})}
@@ -53,6 +75,11 @@ export default function LoginView() {
 						className='w-full p-3  border-gray-300 border'
 						{...register('password', {
 							required: 'El Password es obligatorio',
+							pattern: {
+								value: PASSWORD_REGEX,
+								message:
+									'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial',
+							},
 						})}
 					/>
 					{errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
@@ -72,7 +99,15 @@ export default function LoginView() {
 				>
 					¿No tienes cuenta? Crear Una
 				</Link>
+				<Link
+					to='/auth/restore-password'
+					className='text-center text-gray-300 font-normal'
+				>
+					¿Olvidaste tu contraseña? Restablecerla
+				</Link>
 			</nav>
 		</>
 	);
 }
+
+export default LoginView;

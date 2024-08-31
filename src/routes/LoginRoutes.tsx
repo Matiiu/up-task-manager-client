@@ -4,6 +4,8 @@ import ConfirmAccountView from '@/views/auth/ConfirmAccountView';
 import LoginView from '@/views/auth/LoginView';
 import RegisterView from '@/views/auth/RegisterView';
 import RequestNewTokenView from '@/views/auth/RequestNewTokenView';
+import RestorePasswordView from '@/views/auth/RestorePasswordView';
+import NewPasswordView from '@/views/auth/NewPasswordView';
 
 function LoginRoutes() {
 	return (
@@ -24,6 +26,14 @@ function LoginRoutes() {
 				<Route
 					path='request-token'
 					element={<RequestNewTokenView />}
+				/>
+				<Route
+					path='restore-password'
+					element={<RestorePasswordView />}
+				/>
+				<Route
+					path='new-password'
+					element={<NewPasswordView />}
 				/>
 			</Route>
 		</Routes>

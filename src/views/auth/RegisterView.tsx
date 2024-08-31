@@ -148,6 +148,12 @@ function RegisterView() {
 				>
 					¿Ya tiene cuenta? Iniciar Sesión
 				</Link>
+				<Link
+					to='/auth/restore-password'
+					className='text-center text-gray-300 font-normal'
+				>
+					¿Olvidaste tu contraseña? Restablecerla
+				</Link>
 			</nav>
 		</>
 	);
