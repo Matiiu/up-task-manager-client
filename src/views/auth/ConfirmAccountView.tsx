@@ -26,7 +26,7 @@ function ConfirmAccountView() {
 	};
 
 	const handleComplete = (tkn: ConfirmToken['token']) => {
-		mutate({ token: tkn });
+		mutate({ confirmToken: { token: tkn } });
 	};
 
 	return (
@@ -58,7 +58,7 @@ function ConfirmAccountView() {
 
 			<nav className='mt-10 flex flex-col space-y-4'>
 				<Link
-					to='/auth/request-token'
+					to='/auth/restore-password'
 					className='text-center text-gray-300 font-normal'
 				>
 					Solicitar un nuevo Código

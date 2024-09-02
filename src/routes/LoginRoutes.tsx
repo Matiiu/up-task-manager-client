@@ -24,7 +24,7 @@ function LoginRoutes() {
 					element={<ConfirmAccountView />}
 				/>
 				<Route
-					path='request-token'
+					path='restore-password'
 					element={<RequestNewTokenView />}
 				/>
 				<Route

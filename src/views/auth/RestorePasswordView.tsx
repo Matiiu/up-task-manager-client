@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { RestorePasswordForm } from '@/types/authTypes';
 import ErrorMsg from '@/components/ErrorMsg';
+import AuthAPI from '@/api/AuthAPI';
 
 const initializeRestorePasswordForm = (): RestorePasswordForm => ({
 	email: '',
@@ -15,9 +18,19 @@ function RestorePasswordView() {
 		formState: { errors },
 	} = useForm({ defaultValues: initializeRestorePasswordForm() });
 
-	const handleForgotPassword = (restorePasswordForm: RestorePasswordForm) => {
-		console.log(restorePasswordForm);
-		reset();
+	const { mutate } = useMutation({
+		mutationFn: AuthAPI.restorePassword,
+		onError: (error) => {
+			toast.error(error.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data);
+			reset();
+		},
+	});
+
+	const handleRestorePassword = (restorePasswordForm: RestorePasswordForm) => {
+		mutate({ restorePasswordForm });
 	};
 
 	return (
@@ -30,7 +43,7 @@ function RestorePasswordView() {
 				</span>
 			</p>
 			<form
-				onSubmit={handleSubmit(handleForgotPassword)}
+				onSubmit={handleSubmit(handleRestorePassword)}
 				className='space-y-8 p-10 mt-10  bg-white'
 				noValidate
 			>

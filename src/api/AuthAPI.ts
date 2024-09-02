@@ -2,13 +2,16 @@ import { AxiosError, isAxiosError } from 'axios';
 import { ZodError } from 'zod';
 import api from '@/lib/axios';
 import { UserRegistrationForm } from '@/types/authTypes';
-import type { Auth, UserLoginForm } from '@/types/authTypes';
+import type { Auth, ConfirmToken, UserLoginForm } from '@/types/authTypes';
+import { RestorePasswordForm } from '@/types/authTypes';
 
 type AuthAPIPayload = {
 	userRegistrationForm: UserRegistrationForm;
 	token: Auth['token'];
 	email: Auth['email'];
+	confirmToken: ConfirmToken;
 	userLoginForm: UserLoginForm;
+	restorePasswordForm: RestorePasswordForm;
 };
 
 type ErrorResponse = {
@@ -34,10 +37,12 @@ class AuthAPI {
 		}
 	};
 
-	static confirmAccount = async (payload: Pick<AuthAPIPayload, 'token'>) => {
+	static confirmAccount = async ({
+		confirmToken,
+	}: Pick<AuthAPIPayload, 'confirmToken'>) => {
 		try {
 			const uri = '/auth/confirm-account';
-			const { data } = await api.post<string>(uri, payload);
+			const { data } = await api.post<string>(uri, confirmToken);
 			return data;
 		} catch (error) {
 			if (isAxiosError(error)) {
@@ -51,7 +56,7 @@ class AuthAPI {
 		payload: Pick<AuthAPIPayload, 'email'>,
 	) => {
 		try {
-			const uri = '/auth/request-token';
+			const uri = '/auth/restore-password';
 			const { data } = await api.post<string>(uri, payload);
 			return data;
 		} catch (error) {
@@ -68,6 +73,22 @@ class AuthAPI {
 		try {
 			const uri = '/auth/login';
 			const { data } = await api.post<string>(uri, payload.userLoginForm);
+			return data;
+		} catch (error) {
+			if (isAxiosError(error)) {
+				AuthAPI.handleAxiosError(error);
+			}
+			throw new Error('Error al crear la cuenta');
+		}
+	};
+
+	static restorePassword = async ({
+		restorePasswordForm,
+	}: Pick<AuthAPIPayload, 'restorePasswordForm'>) => {
+		console.log('begin restore password');
+		try {
+			const uri = '/auth/restore-password';
+			const { data } = await api.post<string>(uri, restorePasswordForm);
 			return data;
 		} catch (error) {
 			if (isAxiosError(error)) {
