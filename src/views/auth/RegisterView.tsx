@@ -99,15 +99,15 @@ function RegisterView() {
 						placeholder='Password de Registro'
 						className='w-full p-3  border-gray-300 border'
 						{...register('password', {
-							required: 'El Password es obligatorio',
+							required: 'La Contraseña es obligatorio',
 							minLength: {
 								value: 8,
-								message: 'El Password debe ser mínimo de 8 caracteres',
+								message: 'La Contraseña debe ser mínimo de 8 caracteres',
 							},
 							pattern: {
 								value: PASSWORD_REGEX,
 								message:
-									'El Password debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial',
+									'La Contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial',
 							},
 						})}
 					/>

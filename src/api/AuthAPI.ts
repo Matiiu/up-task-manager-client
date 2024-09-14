@@ -1,9 +1,14 @@
 import { AxiosError, isAxiosError } from 'axios';
 import { ZodError } from 'zod';
 import api from '@/lib/axios';
-import { UserRegistrationForm } from '@/types/authTypes';
-import type { Auth, ConfirmToken, UserLoginForm } from '@/types/authTypes';
-import { RestorePasswordForm } from '@/types/authTypes';
+import type {
+	UserRegistrationForm,
+	Auth,
+	ConfirmToken,
+	UserLoginForm,
+	RestorePasswordForm,
+	NewPasswordFormWithToken,
+} from '@/types/authTypes';
 
 type AuthAPIPayload = {
 	userRegistrationForm: UserRegistrationForm;
@@ -97,6 +102,34 @@ class AuthAPI {
 			throw new Error('Error al crear la cuenta');
 		}
 	};
+
+	static async validateToken(confirmToken: ConfirmToken) {
+		try {
+			const uri = '/auth/validate-token';
+			const { data } = await api.post<string>(uri, confirmToken);
+			return data;
+		} catch (error) {
+			if (isAxiosError(error)) {
+				AuthAPI.handleAxiosError(error);
+			}
+			throw new Error('Error al validar el token');
+		}
+	}
+
+	static async createNewPasswordByToken(
+		newPasswordForm: NewPasswordFormWithToken,
+	) {
+		try {
+			const uri = `auth/new-password/${newPasswordForm.token}`;
+			const { data } = await api.post<string>(uri, newPasswordForm);
+			return data;
+		} catch (error) {
+			if (isAxiosError(error)) {
+				AuthAPI.handleAxiosError(error);
+			}
+			throw new Error('Error al restablecer la contraseña');
+		}
+	}
 
 	private static handleAxiosError(error: AxiosError<unknown, unknown>) {
 		if (error.response && (error.response.data as ErrorResponse).errors) {

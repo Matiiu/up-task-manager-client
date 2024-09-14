@@ -24,6 +24,7 @@ function RequestNewTokenView() {
 		},
 		onSuccess: (data) => {
 			toast.success(data);
+			reset();
 		},
 	});
 
@@ -84,7 +85,7 @@ function RequestNewTokenView() {
 					¿Ya tienes cuenta? Iniciar Sesión
 				</Link>
 				<Link
-					to='/auth/forgot-password'
+					to='/auth/restore-password'
 					className='text-center text-gray-300 font-normal'
 				>
 					¿Olvidaste tu contraseña? Restablecer

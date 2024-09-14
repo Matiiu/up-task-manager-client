@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import type { UserLoginForm } from '@/types/authTypes';
 import ErrorMsg from '@/components/ErrorMsg';
 import AuthAPI from '@/api/AuthAPI';
-import { PASSWORD_REGEX, EMAIL_REGEX } from '@/constants/authConstants';
+import { EMAIL_REGEX } from '@/constants/authConstants';
 
 const initializeUserLoginForm = (): UserLoginForm => ({
 	email: '',
@@ -67,19 +67,14 @@ function LoginView() {
 				</div>
 
 				<div className='flex flex-col gap-5'>
-					<label className='font-normal text-2xl'>Password</label>
+					<label className='font-normal text-2xl'>Contraseña</label>
 
 					<input
 						type='password'
-						placeholder='Password de Registro'
+						placeholder='Contraseña de Registro'
 						className='w-full p-3  border-gray-300 border'
 						{...register('password', {
-							required: 'El Password es obligatorio',
-							pattern: {
-								value: PASSWORD_REGEX,
-								message:
-									'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial',
-							},
+							required: 'La Contraseña es obligatoria',
 						})}
 					/>
 					{errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}

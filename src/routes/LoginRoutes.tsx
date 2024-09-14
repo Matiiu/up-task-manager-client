@@ -5,7 +5,7 @@ import LoginView from '@/views/auth/LoginView';
 import RegisterView from '@/views/auth/RegisterView';
 import RequestNewTokenView from '@/views/auth/RequestNewTokenView';
 import RestorePasswordView from '@/views/auth/RestorePasswordView';
-import NewPasswordView from '@/views/auth/NewPasswordView';
+import CreateNewPasswordView from '@/views/auth/CreateNewPasswordView';
 
 function LoginRoutes() {
 	return (
@@ -33,7 +33,7 @@ function LoginRoutes() {
 				/>
 				<Route
 					path='new-password'
-					element={<NewPasswordView />}
+					element={<CreateNewPasswordView />}
 				/>
 			</Route>
 		</Routes>

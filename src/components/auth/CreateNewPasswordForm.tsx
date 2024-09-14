@@ -1,14 +1,23 @@
-import type { NewPasswordForm } from '@/types/authTypes';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import ErrorMsg from '@/components/ErrorMsg';
+import type { ConfirmToken, NewPasswordFormWithToken } from '@/types/authTypes';
+import AuthAPI from '@/api/AuthAPI';
+import { toast } from 'react-toastify';
+import { PASSWORD_REGEX } from '@/constants/authConstants';
 
-const initializeNewPasswordForm = (): NewPasswordForm => ({
+const initializeNewPasswordForm = (): NewPasswordFormWithToken => ({
 	password: '',
 	passwordConfirmation: '',
+	token: '',
 });
 
-function NewPasswordForm() {
+type NewPasswordFormProps = {
+	token: ConfirmToken['token'];
+};
+
+function NewPasswordForm({ token }: NewPasswordFormProps) {
 	const navigate = useNavigate();
 	const {
 		register,
@@ -18,10 +27,21 @@ function NewPasswordForm() {
 		formState: { errors },
 	} = useForm({ defaultValues: initializeNewPasswordForm() });
 
-	const handleNewPassword = (newPasswordForm: NewPasswordForm) => {
-		console.log(newPasswordForm);
-		reset();
-		navigate('/login');
+	const { mutate } = useMutation({
+		mutationFn: AuthAPI.createNewPasswordByToken,
+		onError: (error) => {
+			toast.error(error.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data);
+			reset();
+			navigate('/auth/login');
+		},
+	});
+
+	const handleNewPassword = (newPasswordForm: NewPasswordFormWithToken) => {
+		newPasswordForm.token = token;
+		mutate(newPasswordForm);
 	};
 
 	const password = watch('password');
@@ -34,17 +54,22 @@ function NewPasswordForm() {
 				noValidate
 			>
 				<div className='flex flex-col gap-5'>
-					<label className='font-normal text-2xl'>Password</label>
+					<label className='font-normal text-2xl'>Contraseña</label>
 
 					<input
 						type='password'
-						placeholder='Password de Registro'
+						placeholder='Contraseña de Registro'
 						className='w-full p-3  border-gray-300 border'
 						{...register('password', {
-							required: 'El Password es obligatorio',
+							required: 'La contraseña es obligatorio',
 							minLength: {
 								value: 8,
-								message: 'El Password debe ser mínimo de 8 caracteres',
+								message: 'La contraseña debe ser mínimo de 8 caracteres',
+							},
+							pattern: {
+								value: PASSWORD_REGEX,
+								message:
+									'La contraseña debe tener al menos una mayúscula, una minúscula, un número y un carácter especial',
 							},
 						})}
 					/>
@@ -52,7 +77,7 @@ function NewPasswordForm() {
 				</div>
 
 				<div className='flex flex-col gap-5'>
-					<label className='font-normal text-2xl'>Repetir Password</label>
+					<label className='font-normal text-2xl'>Repetir Contraseña</label>
 
 					<input
 						id='passwordConfirmation'
@@ -60,9 +85,9 @@ function NewPasswordForm() {
 						placeholder='Repite Password de Registro'
 						className='w-full p-3  border-gray-300 border'
 						{...register('passwordConfirmation', {
-							required: 'Repetir Password es obligatorio',
+							required: 'Repetir Contraseña es obligatorio',
 							validate: (value) =>
-								value === password || 'Los Passwords no son iguales',
+								value === password || 'Las Contraseñas no son iguales',
 						})}
 					/>
 
