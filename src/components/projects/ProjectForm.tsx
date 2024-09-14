@@ -11,10 +11,7 @@ function ProjectForm({ register, errors }: ProjectFormProps) {
 	return (
 		<>
 			<div className='mb-5 space-y-3'>
-				<label
-					htmlFor='projectName'
-					className='text-sm uppercase font-bold'
-				>
+				<label htmlFor='projectName' className='text-sm uppercase font-bold'>
 					Nombre del Proyecto
 				</label>
 				<input
@@ -33,10 +30,7 @@ function ProjectForm({ register, errors }: ProjectFormProps) {
 			</div>
 
 			<div className='mb-5 space-y-3'>
-				<label
-					htmlFor='clientName'
-					className='text-sm uppercase font-bold'
-				>
+				<label htmlFor='clientName' className='text-sm uppercase font-bold'>
 					Nombre Cliente
 				</label>
 				<input
@@ -53,10 +47,7 @@ function ProjectForm({ register, errors }: ProjectFormProps) {
 			</div>
 
 			<div className='mb-5 space-y-3'>
-				<label
-					htmlFor='description'
-					className='text-sm uppercase font-bold'
-				>
+				<label htmlFor='description' className='text-sm uppercase font-bold'>
 					Descripción
 				</label>
 				<textarea

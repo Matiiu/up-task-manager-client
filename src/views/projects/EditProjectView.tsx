@@ -16,13 +16,7 @@ function EditProjectView() {
 
 	if (isError) return <Navigate to='/404' />;
 
-	if (data)
-		return (
-			<EditProjectForm
-				project={data}
-				projectId={projectId}
-			/>
-		);
+	if (data) return <EditProjectForm project={data} projectId={projectId} />;
 }
 
 export default EditProjectView;

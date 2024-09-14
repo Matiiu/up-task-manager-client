@@ -11,30 +11,12 @@ function LoginRoutes() {
 	return (
 		<Routes>
 			<Route element={<AuthLayout />}>
-				<Route
-					path='/login'
-					element={<LoginView />}
-				/>
-				<Route
-					path='/register'
-					element={<RegisterView />}
-				/>
-				<Route
-					path='confirm-account'
-					element={<ConfirmAccountView />}
-				/>
-				<Route
-					path='restore-password'
-					element={<RequestNewTokenView />}
-				/>
-				<Route
-					path='restore-password'
-					element={<RestorePasswordView />}
-				/>
-				<Route
-					path='new-password'
-					element={<CreateNewPasswordView />}
-				/>
+				<Route path='/login' element={<LoginView />} />
+				<Route path='/register' element={<RegisterView />} />
+				<Route path='confirm-account' element={<ConfirmAccountView />} />
+				<Route path='restore-password' element={<RequestNewTokenView />} />
+				<Route path='restore-password' element={<RestorePasswordView />} />
+				<Route path='new-password' element={<CreateNewPasswordView />} />
 			</Route>
 		</Routes>
 	);

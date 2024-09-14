@@ -55,10 +55,7 @@ function CreateProjectView() {
 					onSubmit={handleSubmit(handleForm)}
 					noValidate
 				>
-					<ProjectForm
-						register={register}
-						errors={errors}
-					/>
+					<ProjectForm register={register} errors={errors} />
 					<SubmitDisplayButton label='Crear Proyecto' />
 				</form>
 			</div>

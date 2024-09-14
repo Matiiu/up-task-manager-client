@@ -51,11 +51,7 @@ function DetailsTaskModal() {
 	if (data) {
 		return (
 			<>
-				<Transition
-					appear
-					show={hasViewTask}
-					as={Fragment}
-				>
+				<Transition appear show={hasViewTask} as={Fragment}>
 					<Dialog
 						as='div'
 						className='relative z-10'
@@ -109,10 +105,7 @@ function DetailsTaskModal() {
 											>
 												{Object.entries(statusTranslations).map(
 													([status, translation]) => (
-														<option
-															key={status}
-															value={status}
-														>
+														<option key={status} value={status}>
 															{translation}
 														</option>
 													),

@@ -6,14 +6,8 @@ function Router() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route
-					path='/*'
-					element={<ProjectRoutes />}
-				/>
-				<Route
-					path='/auth/*'
-					element={<LoginRoutes />}
-				/>
+				<Route path='/*' element={<ProjectRoutes />} />
+				<Route path='/auth/*' element={<LoginRoutes />} />
 			</Routes>
 		</BrowserRouter>
 	);

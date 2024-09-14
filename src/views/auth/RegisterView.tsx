@@ -56,10 +56,7 @@ function RegisterView() {
 				noValidate
 			>
 				<div className='flex flex-col gap-5'>
-					<label
-						className='font-normal text-2xl'
-						htmlFor='email'
-					>
+					<label className='font-normal text-2xl' htmlFor='email'>
 						Email
 					</label>
 					<input

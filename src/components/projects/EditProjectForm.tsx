@@ -66,10 +66,7 @@ function EditProjectForm({ projectId, project }: EditProjectFormProps) {
 					onSubmit={handleSubmit(handleForm)}
 					noValidate
 				>
-					<ProjectForm
-						register={register}
-						errors={errors}
-					/>
+					<ProjectForm register={register} errors={errors} />
 					<SubmitDisplayButton label='Guardar Cambios' />
 				</form>
 			</div>

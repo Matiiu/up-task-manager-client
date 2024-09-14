@@ -11,10 +11,7 @@ function TaskForm({ errors, register }: TaskFormProps) {
 	return (
 		<>
 			<div className='flex flex-col gap-5'>
-				<label
-					className='font-normal text-2xl'
-					htmlFor='name'
-				>
+				<label className='font-normal text-2xl' htmlFor='name'>
 					Nombre de la tarea
 				</label>
 				<input
@@ -33,10 +30,7 @@ function TaskForm({ errors, register }: TaskFormProps) {
 			</div>
 
 			<div className='flex flex-col gap-5'>
-				<label
-					className='font-normal text-2xl'
-					htmlFor='description'
-				>
+				<label className='font-normal text-2xl' htmlFor='description'>
 					Descripción de la tarea
 				</label>
 				<textarea

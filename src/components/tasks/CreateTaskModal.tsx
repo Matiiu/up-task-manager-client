@@ -52,11 +52,7 @@ function CreateTaskModal() {
 
 	return (
 		<>
-			<Transition
-				appear
-				show={hasCreateTask}
-				as={Fragment}
-			>
+			<Transition appear show={hasCreateTask} as={Fragment}>
 				<Dialog
 					as='div'
 					className='relative z-10'
@@ -86,10 +82,7 @@ function CreateTaskModal() {
 								leaveTo='opacity-0 scale-95'
 							>
 								<Dialog.Panel className='w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16'>
-									<Dialog.Title
-										as='h3'
-										className='font-black text-4xl  my-5'
-									>
+									<Dialog.Title as='h3' className='font-black text-4xl  my-5'>
 										Nueva Tarea
 									</Dialog.Title>
 
@@ -103,10 +96,7 @@ function CreateTaskModal() {
 										noValidate
 										onSubmit={handleSubmit(handleCreateTask)}
 									>
-										<TaskForm
-											errors={errors}
-											register={register}
-										/>
+										<TaskForm errors={errors} register={register} />
 										<SubmitDisplayButton label='Crear Tarea' />
 									</form>
 								</Dialog.Panel>

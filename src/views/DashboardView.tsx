@@ -49,10 +49,7 @@ function DashboardView() {
 				{!data.length ? (
 					<p className='text-center py-20'>
 						No hay proyectos aún{' '}
-						<Link
-							to='/project/create'
-							className='text-fuchsia-500 font-bold'
-						>
+						<Link to='/project/create' className='text-fuchsia-500 font-bold'>
 							Crear Proyecto
 						</Link>
 					</p>
@@ -83,10 +80,7 @@ function DashboardView() {
 									</div>
 								</div>
 								<div className='flex shrink-0 items-center gap-x-6'>
-									<Menu
-										as='div'
-										className='relative flex-none'
-									>
+									<Menu as='div' className='relative flex-none'>
 										<Menu.Button className='-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900'>
 											<span className='sr-only'>opciones</span>
 											<EllipsisVerticalIcon

@@ -41,10 +41,7 @@ function TaskList({ tasks }: TaskListProps) {
 
 			<section className='flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-32'>
 				{Object.entries(groupTasks(tasks)).map(([status, tasks]) => (
-					<div
-						key={status}
-						className='min-w-[300px] 2xl:min-w-0 2xl:w-1/5'
-					>
+					<div key={status} className='min-w-[300px] 2xl:min-w-0 2xl:w-1/5'>
 						<h3
 							className={`capitalize text-xl font-light border border-slate-300 bg-white p-3 border-t-8 ${statusStyle[status as TaskStatus]}`}
 						>
@@ -56,12 +53,7 @@ function TaskList({ tasks }: TaskListProps) {
 									No Hay tareas
 								</li>
 							) : (
-								tasks.map((task) => (
-									<TaskCard
-										key={task._id}
-										task={task}
-									/>
-								))
+								tasks.map((task) => <TaskCard key={task._id} task={task} />)
 							)}
 						</ul>
 					</div>

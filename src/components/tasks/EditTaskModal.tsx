@@ -51,11 +51,7 @@ function EditTaskModal({ task, taskId }: EditTaskProps) {
 	};
 
 	return (
-		<Transition
-			appear
-			show={true}
-			as={Fragment}
-		>
+		<Transition appear show={true} as={Fragment}>
 			<Dialog
 				as='div'
 				className='relative z-10'
@@ -85,10 +81,7 @@ function EditTaskModal({ task, taskId }: EditTaskProps) {
 							leaveTo='opacity-0 scale-95'
 						>
 							<Dialog.Panel className='w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16'>
-								<Dialog.Title
-									as='h3'
-									className='font-black text-4xl  my-5'
-								>
+								<Dialog.Title as='h3' className='font-black text-4xl  my-5'>
 									Editar Tarea
 								</Dialog.Title>
 
@@ -102,10 +95,7 @@ function EditTaskModal({ task, taskId }: EditTaskProps) {
 									noValidate
 									onSubmit={handleSubmit(handleEditTask)}
 								>
-									<TaskForm
-										errors={errors}
-										register={register}
-									/>
+									<TaskForm errors={errors} register={register} />
 									<input
 										type='submit'
 										className=' bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer'

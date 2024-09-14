@@ -9,26 +9,13 @@ export default function ProjectRoutes() {
 	return (
 		<Routes>
 			<Route element={<AppLayout />}>
-				<Route
-					index
-					path='/'
-					element={<DashboardView />}
-				/>
+				<Route index path='/' element={<DashboardView />} />
 
-				<Route
-					path='/projects/create'
-					element={<CreateProjectView />}
-				/>
+				<Route path='/projects/create' element={<CreateProjectView />} />
 
-				<Route
-					path='/projects/:projectId'
-					element={<DetailsProjectView />}
-				/>
+				<Route path='/projects/:projectId' element={<DetailsProjectView />} />
 
-				<Route
-					path='/projects/:projectId/edit'
-					element={<EditProjectView />}
-				/>
+				<Route path='/projects/:projectId/edit' element={<EditProjectView />} />
 			</Route>
 		</Routes>
 	);
