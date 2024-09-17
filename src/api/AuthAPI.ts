@@ -9,6 +9,8 @@ import type {
 	RestorePasswordForm,
 	NewPasswordFormWithToken,
 } from '@/types/authTypes';
+import { setLocalStorageItem } from '@/services/localStorageService';
+import { tokenSchema } from '@/schemas/authSchemas';
 
 type AuthAPIPayload = {
 	userRegistrationForm: UserRegistrationForm;
@@ -72,24 +74,29 @@ class AuthAPI {
 		}
 	};
 
-	static authenticateUser = async (
-		payload: Pick<AuthAPIPayload, 'userLoginForm'>,
-	) => {
+	static authenticateUser = async (userLoginForm: UserLoginForm) => {
 		try {
 			const uri = '/auth/login';
-			const { data } = await api.post<string>(uri, payload.userLoginForm);
-			return data;
+			const { data } = await api.post(uri, userLoginForm);
+			const response = tokenSchema.safeParse(data);
+			if (!response.success) {
+				throw response.error;
+			}
+			console.log({ response });
+
+			setLocalStorageItem('auth_token', response.data.token);
 		} catch (error) {
 			if (isAxiosError(error)) {
 				AuthAPI.handleAxiosError(error);
+			}
+			if (error instanceof ZodError) {
+				AuthAPI.handleZodError(error);
 			}
 			throw new Error('Error al crear la cuenta');
 		}
 	};
 
-	static restorePassword = async ({
-		restorePasswordForm,
-	}: Pick<AuthAPIPayload, 'restorePasswordForm'>) => {
+	static restorePassword = async (restorePasswordForm: RestorePasswordForm) => {
 		console.log('begin restore password');
 		try {
 			const uri = '/auth/restore-password';

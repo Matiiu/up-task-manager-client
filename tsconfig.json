@@ -19,6 +19,7 @@
       "@/locales/*": ["locales/*"],
       "@/constants/*": ["constants/*"],
       "@/routes": ["routes/*"],
+      "@/services": ["services/*"],
     },
 
     /* Bundler mode */

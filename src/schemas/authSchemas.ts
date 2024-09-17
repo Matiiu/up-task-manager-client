@@ -7,3 +7,7 @@ export const authSchema = z.object({
 	passwordConfirmation: z.string().min(8),
 	token: z.string().length(6),
 });
+
+export const tokenSchema = z.object({
+	token: z.string(),
+});

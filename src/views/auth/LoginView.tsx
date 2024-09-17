@@ -24,13 +24,13 @@ function LoginView() {
 		onError: (error) => {
 			toast.error(error.message);
 		},
-		onSuccess: (data) => {
-			toast.success(data);
+		onSuccess: () => {
+			toast.success('Iniciando Sesión...');
 		},
 	});
 
 	const handleLogin = (userLoginForm: UserLoginForm) => {
-		mutate({ userLoginForm });
+		mutate(userLoginForm);
 	};
 
 	return (

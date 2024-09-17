@@ -30,7 +30,7 @@ function RestorePasswordView() {
 	});
 
 	const handleRestorePassword = (restorePasswordForm: RestorePasswordForm) => {
-		mutate({ restorePasswordForm });
+		mutate(restorePasswordForm);
 	};
 
 	return (
