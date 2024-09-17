@@ -2,15 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import ErrorMsg from '@/components/ErrorMsg';
-import type { ConfirmToken, NewPasswordFormWithToken } from '@/types/authTypes';
+import type { ConfirmToken, NewPasswordForm } from '@/types/authTypes';
 import AuthAPI from '@/api/AuthAPI';
 import { toast } from 'react-toastify';
 import { PASSWORD_REGEX } from '@/constants/authConstants';
 
-const initializeNewPasswordForm = (): NewPasswordFormWithToken => ({
+const initializeNewPasswordForm = (): NewPasswordForm => ({
 	password: '',
 	passwordConfirmation: '',
-	token: '',
 });
 
 type NewPasswordFormProps = {
@@ -39,9 +38,12 @@ function NewPasswordForm({ token }: NewPasswordFormProps) {
 		},
 	});
 
-	const handleNewPassword = (newPasswordForm: NewPasswordFormWithToken) => {
-		newPasswordForm.token = token;
-		mutate(newPasswordForm);
+	const handleNewPassword = (newPasswordForm: NewPasswordForm) => {
+		const body = {
+			...newPasswordForm,
+			token,
+		};
+		mutate(body);
 	};
 
 	const password = watch('password');

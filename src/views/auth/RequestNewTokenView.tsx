@@ -28,8 +28,10 @@ function RequestNewTokenView() {
 		},
 	});
 
-	const handleRequestCode = (formData: RequestConfirmationTokenForm) => {
-		mutate(formData);
+	const handleRequestCode = (
+		requestConfirmationTokenForm: RequestConfirmationTokenForm,
+	) => {
+		mutate(requestConfirmationTokenForm);
 	};
 
 	return (

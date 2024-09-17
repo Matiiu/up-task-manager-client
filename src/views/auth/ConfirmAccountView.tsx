@@ -26,7 +26,7 @@ function ConfirmAccountView() {
 	};
 
 	const handleComplete = (tkn: ConfirmToken['token']) => {
-		mutate({ confirmToken: { token: tkn } });
+		mutate({ token: tkn });
 	};
 
 	return (
