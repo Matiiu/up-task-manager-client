@@ -8,6 +8,6 @@ export const authSchema = z.object({
 	token: z.string().length(6),
 });
 
-export const tokenSchema = z.object({
+export const authTokenSchema = z.object({
 	token: z.string(),
 });

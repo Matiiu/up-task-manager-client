@@ -10,7 +10,7 @@ import type {
 	NewPasswordFormWithToken,
 } from '@/types/authTypes';
 import { setLocalStorageItem } from '@/services/localStorageService';
-import { tokenSchema } from '@/schemas/authSchemas';
+import { authTokenSchema } from '@/schemas/authSchemas';
 
 type AuthAPIPayload = {
 	userRegistrationForm: UserRegistrationForm;
@@ -78,7 +78,7 @@ class AuthAPI {
 		try {
 			const uri = '/auth/login';
 			const { data } = await api.post(uri, userLoginForm);
-			const response = tokenSchema.safeParse(data);
+			const response = authTokenSchema.safeParse(data);
 			if (!response.success) {
 				throw response.error;
 			}
