@@ -18,8 +18,7 @@
       "@/utils/*": ["utils/*"],
       "@/locales/*": ["locales/*"],
       "@/constants/*": ["constants/*"],
-      "@/routes": ["routes/*"],
-      "@/services": ["services/*"],
+      "@/services/*": ["services/*"],
     },
 
     /* Bundler mode */
