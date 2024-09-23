@@ -11,3 +11,12 @@ export const authSchema = z.object({
 export const authTokenSchema = z.object({
 	token: z.string(),
 });
+
+export const userSchema = z.object({
+	_id: z.string(),
+	name: z.string(),
+	email: z.string().email(),
+	isConfirmed: z.boolean(),
+	createdAt: z.string(),
+	updatedAt: z.string(),
+});

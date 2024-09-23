@@ -1,4 +1,4 @@
-import { authSchema } from '@/schemas/authSchemas';
+import { authSchema, userSchema } from '@/schemas/authSchemas';
 import { z } from 'zod';
 
 export type Auth = z.infer<typeof authSchema>;
@@ -15,3 +15,4 @@ export type NewPasswordFormWithToken = Pick<
 	Auth,
 	'password' | 'passwordConfirmation' | 'token'
 >;
+export type User = z.infer<typeof userSchema>;

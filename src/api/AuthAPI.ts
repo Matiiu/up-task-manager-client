@@ -7,7 +7,7 @@ import type {
 	NewPasswordFormWithToken,
 	RequestConfirmationTokenForm,
 } from '@/types/authTypes';
-import { authTokenSchema } from '@/schemas/authSchemas';
+import { authTokenSchema, userSchema } from '@/schemas/authSchemas';
 import { CustomZodError, handleApiError } from '@/utils/errorsUtils';
 import { setLocalStorageItem } from '@/services/localStorageService';
 
@@ -113,6 +113,24 @@ class AuthAPI {
 			const uri = `auth/new-password/${newPasswordForm.token}`;
 			const { data } = await api.post<string>(uri, newPasswordForm);
 			return data;
+		} catch (error) {
+			handleApiError(error);
+			console.error('unexpected error: ', error);
+			throw new Error(
+				'Ocurrió un error inesperado. Por favor, intente nuevamente.',
+			);
+		}
+	};
+
+	static getAuthenticatedUser = async () => {
+		try {
+			const uri = '/auth/user';
+			const { data } = await api(uri);
+			const response = userSchema.safeParse(data);
+			if (!response.success) {
+				throw new CustomZodError(response.error);
+			}
+			return response.data;
 		} catch (error) {
 			handleApiError(error);
 			console.error('unexpected error: ', error);

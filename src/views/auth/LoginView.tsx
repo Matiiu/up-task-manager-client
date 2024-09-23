@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import type { UserLoginForm } from '@/types/authTypes';
@@ -13,6 +13,8 @@ const initializeUserLoginForm = (): UserLoginForm => ({
 });
 
 function LoginView() {
+	const navigate = useNavigate();
+
 	const {
 		register,
 		handleSubmit,
@@ -25,7 +27,7 @@ function LoginView() {
 			toast.error(error.message);
 		},
 		onSuccess: () => {
-			toast.success('Iniciando Sesión...');
+			navigate('/');
 		},
 	});
 

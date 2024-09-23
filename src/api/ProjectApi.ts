@@ -3,7 +3,6 @@ import { AxiosError, isAxiosError } from 'axios';
 import { projectSchema, dashboardProjectSchema } from '../schemas';
 import { ZodError } from 'zod';
 import type { Project, ProjectFormData } from '@/types/index';
-import { getLocalStorageItem } from '@/services/localStorageService';
 
 type ErrorResponse = {
 	errors: Array<{ msg: string }>;
@@ -27,12 +26,7 @@ class ProjectAPI {
 
 	static async getProjects() {
 		try {
-			const token = getLocalStorageItem('auth_token');
-			const { data } = await api('/projects', {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
+			const { data } = await api('/projects');
 			const response = dashboardProjectSchema.safeParse(data);
 			if (!response.success) {
 				throw response.error;

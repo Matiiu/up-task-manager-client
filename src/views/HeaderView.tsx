@@ -1,8 +1,12 @@
 import Logo from '@/components/Logo';
 import NavMenu from '@/components/NavMenu';
+import { User } from '@/types/authTypes';
 import { Link } from 'react-router-dom';
 
-function HeaderView() {
+type HeaderViewProps = {
+	user: User;
+};
+function HeaderView({ user }: HeaderViewProps) {
 	return (
 		<header className='bg-gray-800 py-5'>
 			<div className='max-w-screen-2xl mx-auto flex flex-col lg:flex-row justify-between items-center'>
@@ -12,7 +16,7 @@ function HeaderView() {
 					</Link>
 				</figure>
 
-				<NavMenu />
+				<NavMenu user={user} />
 			</div>
 		</header>
 	);

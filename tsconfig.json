@@ -19,6 +19,7 @@
       "@/locales/*": ["locales/*"],
       "@/constants/*": ["constants/*"],
       "@/services/*": ["services/*"],
+      "@/hooks/*": ["hooks/*"],
     },
 
     /* Bundler mode */
