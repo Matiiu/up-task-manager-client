@@ -3,7 +3,8 @@ const PREFIX = 'upTask_app_';
 export function setLocalStorageItem(key: string, value: unknown) {
 	try {
 		const data = JSON.stringify(value);
-		localStorage.setItem(`${PREFIX}${key}`, data);
+		const cleanKey = key.trim().toLowerCase();
+		localStorage.setItem(`${PREFIX}${cleanKey}`, data);
 	} catch (error) {
 		console.error('Error al guardar en el LocalStorage', error);
 	}
@@ -11,7 +12,8 @@ export function setLocalStorageItem(key: string, value: unknown) {
 
 export function getLocalStorageItem(key: string) {
 	try {
-		const data = localStorage.getItem(`${PREFIX}${key}`);
+		const cleanKey = key.trim().toLowerCase();
+		const data = localStorage.getItem(`${PREFIX}${cleanKey}`);
 		return data ? JSON.parse(data) : null;
 	} catch (error) {
 		console.error('Error al obtener del LocalStorage', error);
@@ -21,7 +23,8 @@ export function getLocalStorageItem(key: string) {
 
 export function removeLocalStorageItem(key: string) {
 	try {
-		localStorage.removeItem(PREFIX + key);
+		const cleanKey = key.trim().toLowerCase();
+		localStorage.removeItem(PREFIX + cleanKey);
 	} catch (error) {
 		console.error('Error al eliminar de localStorage:', error);
 	}

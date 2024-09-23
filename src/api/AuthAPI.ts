@@ -7,9 +7,9 @@ import type {
 	NewPasswordFormWithToken,
 	RequestConfirmationTokenForm,
 } from '@/types/authTypes';
-import { setLocalStorageItem } from '@/services/localStorageService';
 import { authTokenSchema } from '@/schemas/authSchemas';
 import { CustomZodError, handleApiError } from '@/utils/errorsUtils';
+import { setLocalStorageItem } from '@/services/localStorageService';
 
 class AuthAPI {
 	static createAccount = async (userRegistrationForm: UserRegistrationForm) => {
