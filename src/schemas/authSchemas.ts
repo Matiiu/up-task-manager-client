@@ -16,7 +16,6 @@ export const userSchema = z.object({
 	_id: z.string(),
 	name: z.string(),
 	email: z.string().email(),
-	isConfirmed: z.boolean(),
 	createdAt: z.string(),
 	updatedAt: z.string(),
 });

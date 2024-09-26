@@ -110,8 +110,9 @@ class AuthAPI {
 		newPasswordForm: NewPasswordFormWithToken,
 	) => {
 		try {
-			const uri = `auth/new-password/${newPasswordForm.token}`;
-			const { data } = await api.post<string>(uri, newPasswordForm);
+			const { token, ...rest } = newPasswordForm;
+			const uri = `auth/new-password/${token}`;
+			const { data } = await api.post<string>(uri, rest);
 			return data;
 		} catch (error) {
 			handleApiError(error);
