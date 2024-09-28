@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import type { User } from '@/types/authTypes';
+import type { TeamMember } from '@/types/teamTypes';
 import TeamAPI from '@/api/TeamAPI';
 
 type ShowMembersProps = {
-	user: User;
+	user: TeamMember;
 	onResetForm: () => void;
 };
 
