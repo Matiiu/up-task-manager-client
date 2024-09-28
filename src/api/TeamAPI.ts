@@ -4,6 +4,7 @@ import type {
 	TeamMemberFormWithProjectId,
 	AddMemberToProject,
 } from '@/types/teamTypes';
+import { teamMemberSchema } from '@/schemas/teamSchemas';
 
 export default class TeamAPI {
 	static getMemberByEmail = async (
@@ -13,8 +14,11 @@ export default class TeamAPI {
 			const { projectId, ...rest } = teamMemberForm;
 			const uri = `/team/${projectId}/find`;
 			const { data } = await api.post(uri, rest);
-			console.log({ data });
-			return data;
+			const result = teamMemberSchema.safeParse(data);
+			if (!result.success) {
+				throw result.error;
+			}
+			return result.data;
 		} catch (error) {
 			handleApiError(error);
 			console.error('unexpected error: ', error);
