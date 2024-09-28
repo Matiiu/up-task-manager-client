@@ -7,3 +7,7 @@ export type TeamMemberForm = Pick<TeamMember, 'email'>;
 export type TeamMemberFormWithProjectId = TeamMemberForm & {
 	projectId: Project['_id'];
 };
+export type AddMemberToProject = {
+	userId: TeamMember['_id'];
+	projectId: Project['_id'];
+};

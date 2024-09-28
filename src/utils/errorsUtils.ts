@@ -44,7 +44,7 @@ export class CustomAxiosError extends Error {
 			? this.data.errors
 					.map((error: Record<string, string>) => error.msg)
 					.join(', ')
-			: this.data?.error?.msg;
+			: this.data?.message;
 		return errorMessage || 'Error desconocido, por favor intente de nuevo';
 	}
 }
@@ -58,7 +58,6 @@ export function handleApiError(error: unknown): void {
 
 	if (error instanceof AxiosError && error.response) {
 		const serviceError = new CustomAxiosError(error);
-		console.error('Service Error:', serviceError.getErrorMessage());
 		throw new Error(serviceError.getErrorMessage());
 	}
 

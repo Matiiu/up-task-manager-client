@@ -3,10 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import ErrorMsg from '@/components/ErrorMsg';
-import type {
-	TeamMemberForm,
-	TeamMemberFormWithProjectId,
-} from '@/types/teamTypes';
+import type { TeamMemberForm } from '@/types/teamTypes';
 import { EMAIL_REGEX } from '@/constants/authConstants';
 import TeamAPI from '@/api/TeamAPI';
 import ShowMembers from '@/components/team/ShowMembers';
@@ -22,6 +19,7 @@ export default function AddMemberForm() {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm({ defaultValues: initializedAddMemberForm() });
 
@@ -32,12 +30,13 @@ export default function AddMemberForm() {
 		},
 	});
 
+	const resetData = () => {
+		reset();
+		mutation.reset();
+	};
+
 	const handleSearchUser = async (teamMemberForm: TeamMemberForm) => {
-		const data: TeamMemberFormWithProjectId = {
-			projectId,
-			...teamMemberForm,
-		};
-		mutation.mutate(data);
+		mutation.mutate({ projectId, ...teamMemberForm });
 	};
 
 	return (
@@ -77,7 +76,9 @@ export default function AddMemberForm() {
 				{mutation.isPending && (
 					<p className='text-center'>Buscando Usuario...</p>
 				)}
-				{mutation.data && <ShowMembers user={mutation.data} />}
+				{mutation.data && (
+					<ShowMembers user={mutation.data} onResetForm={resetData} />
+				)}
 			</div>
 		</>
 	);

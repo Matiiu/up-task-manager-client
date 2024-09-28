@@ -4,6 +4,4 @@ export const teamMemberSchema = userSchema.pick({
 	_id: true,
 	name: true,
 	email: true,
-	createdAt: true,
-	updatedAt: true,
 });
