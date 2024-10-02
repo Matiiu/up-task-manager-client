@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { userSchema } from '@/schemas/authSchemas';
 
 export const teamMemberSchema = userSchema.pick({
@@ -5,3 +6,5 @@ export const teamMemberSchema = userSchema.pick({
 	name: true,
 	email: true,
 });
+
+export const teamMembersSchema = z.array(teamMemberSchema);

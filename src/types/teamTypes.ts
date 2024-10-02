@@ -11,3 +11,7 @@ export type AddMemberToProject = {
 	userId: TeamMember['_id'];
 	projectId: Project['_id'];
 };
+export type RemoveMemberFromProject = {
+	userId: TeamMember['_id'];
+	projectId: Project['_id'];
+};

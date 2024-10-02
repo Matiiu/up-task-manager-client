@@ -1,19 +1,17 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AddMemberForm from '@/components/team/AddMemberForm';
 
 export default function AddMemberModal() {
-	const location = useLocation();
 	const navigate = useNavigate();
-
 	const queryParams = new URLSearchParams(location.search);
 	const addMember = queryParams.get('addMember');
-	const show = addMember ? true : false;
+	const isShow = !!addMember;
 
 	return (
 		<>
-			<Transition appear show={show} as={Fragment}>
+			<Transition appear show={isShow} as={Fragment}>
 				<Dialog
 					as='div'
 					className='relative z-10'

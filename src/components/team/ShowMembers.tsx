@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import type { TeamMember } from '@/types/teamTypes';
@@ -12,12 +12,15 @@ type ShowMembersProps = {
 export default function ShowMembers({ user, onResetForm }: ShowMembersProps) {
 	const params = useParams();
 	const projectId = params?.projectId ?? '';
+	const queryClient = useQueryClient();
+
 	const { mutate } = useMutation({
 		mutationFn: TeamAPI.addMemberToProject,
 		onError: (error) => {
 			toast.error(error.message);
 		},
 		onSuccess: (data) => {
+			queryClient.invalidateQueries({ queryKey: ['team', projectId] });
 			toast.success(data);
 			onResetForm();
 		},
