@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -14,6 +15,8 @@ const initializeUserLoginForm = (): UserLoginForm => ({
 
 function LoginView() {
 	const navigate = useNavigate();
+	const [isSuccessfulAuthentication, setIsSuccessfulAuthentication] =
+		useState(false);
 
 	const {
 		register,
@@ -27,9 +30,17 @@ function LoginView() {
 			toast.error(error.message);
 		},
 		onSuccess: () => {
-			navigate('/');
+			setIsSuccessfulAuthentication(true);
 		},
 	});
+
+	useEffect(() => {
+		let timeoutId: NodeJS.Timeout;
+		if (isSuccessfulAuthentication) {
+			timeoutId = setTimeout(() => navigate('/'), 1500);
+		}
+		return () => clearTimeout(timeoutId);
+	}, [isSuccessfulAuthentication, navigate]);
 
 	const handleLogin = (userLoginForm: UserLoginForm) => {
 		mutate(userLoginForm);
