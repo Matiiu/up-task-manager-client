@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { userSchema } from './authSchemas';
 
 // ********** Star Task **********
 export const taskStatusSchema = z.enum([
@@ -28,6 +29,7 @@ export const projectSchema = z.object({
 	createdAt: z.string(),
 	updatedAt: z.string(),
 	tasks: z.array(taskSchema),
+	manager: z.string(userSchema.pick({ _id: true })),
 });
 
 export const dashboardProjectSchema = z.array(
@@ -36,6 +38,9 @@ export const dashboardProjectSchema = z.array(
 		projectName: true,
 		clientName: true,
 		description: true,
+		createdAt: true,
+		updatedAt: true,
+		manager: true,
 	}),
 );
 // ********** End Project **********
