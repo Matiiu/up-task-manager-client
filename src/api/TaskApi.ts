@@ -5,6 +5,7 @@ import api from '@/lib/axios';
 import type { TaskFormData, Project, Task as TTask } from '@/types/index';
 import { taskSchema } from '@/schemas/index';
 import { normalizeText } from '@/utils/index';
+import { handleApiError } from '@/utils/errorsUtils';
 
 type ErrorResponse = {
 	errors: Array<{ msg: string }>;
@@ -31,7 +32,8 @@ class Task {
 			const { data } = await api.post<string>(url, formData);
 			return data;
 		} catch (error) {
-			if (isAxiosError(error)) Task.handleAxiosError(error);
+			handleApiError(error);
+			console.error('Unexpected error:', error);
 			throw new Error('Error al crear la tarea');
 		}
 	}
@@ -50,8 +52,8 @@ class Task {
 			}
 			return response.data;
 		} catch (error) {
-			if (isAxiosError(error)) Task.handleAxiosError(error);
-			if (error instanceof ZodError) Task.handleZodError(error);
+			handleApiError(error);
+			console.error('unexpected error: ', error);
 			throw new Error('Error al obtener la tarea');
 		}
 	}
@@ -66,9 +68,9 @@ class Task {
 			const { data } = await api.put<string>(url, formData);
 			return data;
 		} catch (error) {
-			if (isAxiosError(error)) Task.handleAxiosError(error);
-			if (error instanceof ZodError) Task.handleZodError(error);
-			throw new Error('Error al obtener la tarea');
+			handleApiError(error);
+			console.error('unexpected error: ', error);
+			throw new Error('Error al editar la tarea');
 		}
 	}
 

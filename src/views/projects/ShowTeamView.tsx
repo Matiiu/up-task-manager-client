@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, Navigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import AddMemberModal from '@/components/team/AddMember';
 import TeamAPI from '@/api/TeamAPI';
@@ -9,7 +9,7 @@ export default function ShowTeamView() {
 	const params = useParams();
 	const projectId = params?.projectId ?? '';
 
-	const { data, isLoading, isError, error } = useQuery({
+	const { data, isLoading, isError } = useQuery({
 		queryKey: ['team', projectId],
 		queryFn: () => TeamAPI.getTeam(projectId),
 		retry: 1,
@@ -17,7 +17,7 @@ export default function ShowTeamView() {
 
 	if (isLoading) return <p>Cargando...</p>;
 
-	if (isError) return <p>Error: {error.message}</p>;
+	if (isError) return <Navigate to='/404' />;
 
 	if (data) {
 		return (

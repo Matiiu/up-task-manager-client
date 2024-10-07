@@ -1,11 +1,7 @@
 import type { Task, TaskStatus } from '@/types/index';
-import TaskCard from './TaskCard';
+import TaskCard from '@/components/tasks/TaskCard';
 import { statusStyle } from '@/constants/index';
 import { statusTranslations } from '@/locales/es';
-
-type TaskListProps = {
-	tasks: Task[];
-};
 
 type GroupTask = {
 	[key: string]: Task[];
@@ -34,7 +30,12 @@ function groupTasks(tasks: Task[]) {
 	return tasks.reduce(validateGroup, initialStateGroup);
 }
 
-function TaskList({ tasks }: TaskListProps) {
+type TaskListProps = {
+	tasks: Task[];
+	isManager: boolean;
+};
+
+function TaskList({ tasks, isManager = false }: TaskListProps) {
 	return (
 		<>
 			<h2 className='text-5xl font-black my-10'>Tareas</h2>
@@ -53,7 +54,9 @@ function TaskList({ tasks }: TaskListProps) {
 									No Hay tareas
 								</li>
 							) : (
-								tasks.map((task) => <TaskCard key={task._id} task={task} />)
+								tasks.map((task) => (
+									<TaskCard key={task._id} task={task} isManager={isManager} />
+								))
 							)}
 						</ul>
 					</div>

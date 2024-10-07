@@ -56,7 +56,10 @@ function DetailsProjectView() {
 					</nav>
 				)}
 
-				<MemoizedTaskList tasks={data.tasks} />
+				<MemoizedTaskList
+					tasks={data.tasks}
+					isManager={isManager(data.manager, authenticatedUser._id)}
+				/>
 
 				<Suspense fallback='Cargando...'>
 					<LazyCreateTaskModal />
