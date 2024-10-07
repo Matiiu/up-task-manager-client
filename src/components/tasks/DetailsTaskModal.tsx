@@ -1,4 +1,4 @@
-import { Fragment, useEffect, ChangeEvent } from 'react';
+import { Fragment, useEffect, ChangeEvent, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -48,6 +48,14 @@ function DetailsTaskModal() {
 		}
 	}, [isError, error, navigate, projectId]);
 
+	const user = useMemo(
+		() =>
+			data && typeof data.completedBy === 'object' && data.completedBy
+				? data.completedBy
+				: null,
+		[data],
+	);
+
 	if (data) {
 		return (
 			<>
@@ -87,6 +95,11 @@ function DetailsTaskModal() {
 										<p className='text-sm text-slate-400'>
 											Última actualización: {formatToLongDate(data.updatedAt)}
 										</p>
+										{user && (
+											<p className='text-sm text-slate-600'>
+												Estado Actualizado por: {user.name}
+											</p>
+										)}
 										<Dialog.Title
 											as='h3'
 											className='font-black text-4xl text-slate-600 my-5'

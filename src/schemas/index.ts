@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { userSchema } from './authSchemas';
+import { userSchema } from '@/schemas/authSchemas';
 
 // ********** Star Task **********
 export const taskStatusSchema = z.enum([
@@ -9,6 +9,7 @@ export const taskStatusSchema = z.enum([
 	'underReview',
 	'completed',
 ]);
+
 export const taskSchema = z.object({
 	_id: z.string(),
 	name: z.string(),
@@ -17,6 +18,10 @@ export const taskSchema = z.object({
 	createdAt: z.string(),
 	updatedAt: z.string(),
 	status: taskStatusSchema,
+	completedBy: z.union([
+		userSchema.pick({ _id: true, name: true, email: true }).nullable(),
+		z.string().nullable(),
+	]),
 });
 // ********** End Task **********
 

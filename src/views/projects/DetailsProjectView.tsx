@@ -22,7 +22,7 @@ function DetailsProjectView() {
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ['project', projectId],
 		queryFn: () => ProjectAPI.getProjectById(projectId),
-		retry: false,
+		retry: 1,
 	});
 	const navigate = useNavigate();
 
