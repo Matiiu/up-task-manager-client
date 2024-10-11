@@ -1,4 +1,4 @@
-import { Fragment, useEffect, ChangeEvent, useMemo } from 'react';
+import { Fragment, useEffect, ChangeEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { formatToLongDate } from '@/utils/index';
 import { statusTranslations } from '@/locales/es';
 import type { Task as TTask } from '@/types/index';
+import ShowActivityLog from './ShowActivityLog';
 
 function DetailsTaskModal() {
 	const params = useParams();
@@ -48,14 +49,6 @@ function DetailsTaskModal() {
 		}
 	}, [isError, error, navigate, projectId]);
 
-	const user = useMemo(
-		() =>
-			data && typeof data.completedBy === 'object' && data.completedBy
-				? data.completedBy
-				: null,
-		[data],
-	);
-
 	if (data) {
 		return (
 			<>
@@ -95,11 +88,18 @@ function DetailsTaskModal() {
 										<p className='text-sm text-slate-400'>
 											Última actualización: {formatToLongDate(data.updatedAt)}
 										</p>
-										{user && (
-											<p className='text-sm text-slate-600'>
-												Estado Actualizado por: {user.name}
-											</p>
-										)}
+										<p className='text-lg text-slate-500 mb-2'>
+											Historial de Cambios
+										</p>
+										<ul className='list-decimal'>
+											{data.completedBy.length > 0 &&
+												data.completedBy.map((activityLog, index) => (
+													<ShowActivityLog
+														activityLog={activityLog}
+														key={index}
+													/>
+												))}
+										</ul>
 										<Dialog.Title
 											as='h3'
 											className='font-black text-4xl text-slate-600 my-5'

@@ -10,6 +10,14 @@ export const taskStatusSchema = z.enum([
 	'completed',
 ]);
 
+export const ActivityLogSchema = z.object({
+	user: z.union([
+		z.string(),
+		z.object(userSchema.pick({ _id: true, name: true, email: true }).shape),
+	]),
+	status: taskStatusSchema,
+});
+
 export const taskSchema = z.object({
 	_id: z.string(),
 	name: z.string(),
@@ -18,10 +26,7 @@ export const taskSchema = z.object({
 	createdAt: z.string(),
 	updatedAt: z.string(),
 	status: taskStatusSchema,
-	completedBy: z.union([
-		userSchema.pick({ _id: true, name: true, email: true }).nullable(),
-		z.string().nullable(),
-	]),
+	completedBy: z.array(ActivityLogSchema).default([]),
 });
 // ********** End Task **********
 

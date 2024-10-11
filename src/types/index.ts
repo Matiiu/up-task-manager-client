@@ -1,4 +1,9 @@
-import { projectSchema, taskSchema, taskStatusSchema } from '@/schemas/index';
+import {
+	projectSchema,
+	taskSchema,
+	taskStatusSchema,
+	ActivityLogSchema,
+} from '@/schemas/index';
 import { z } from 'zod';
 
 // ********** Star Project **********
@@ -13,4 +18,5 @@ export type ProjectFormData = Pick<
 export type TaskStatus = z.infer<typeof taskStatusSchema>;
 export type Task = z.infer<typeof taskSchema>;
 export type TaskFormData = Pick<Task, 'name' | 'description'>;
+export type ActivityLog = z.infer<typeof ActivityLogSchema>;
 // ********** End Task **********
