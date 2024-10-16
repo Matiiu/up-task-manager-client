@@ -8,6 +8,7 @@ import { formatToLongDate } from '@/utils/index';
 import { statusTranslations } from '@/locales/es';
 import type { Task as TTask } from '@/types/index';
 import ShowActivityLog from './ShowActivityLog';
+import NotesPanel from '../notes/NotesPanel';
 
 function DetailsTaskModal() {
 	const params = useParams();
@@ -88,18 +89,23 @@ function DetailsTaskModal() {
 										<p className='text-sm text-slate-400'>
 											Última actualización: {formatToLongDate(data.updatedAt)}
 										</p>
-										<p className='text-lg text-slate-500 mb-2'>
-											Historial de Cambios
-										</p>
-										<ul className='list-decimal'>
-											{data.completedBy.length > 0 &&
-												data.completedBy.map((activityLog, index) => (
-													<ShowActivityLog
-														activityLog={activityLog}
-														key={index}
-													/>
-												))}
-										</ul>
+										{data.completedBy.length > 0 && (
+											<>
+												<p className='text-lg text-slate-500 mb-2'>
+													Historial de Cambios
+												</p>
+												<ul className='list-decimal'>
+													{data.completedBy.length > 0 &&
+														data.completedBy.map((activityLog, index) => (
+															<ShowActivityLog
+																activityLog={activityLog}
+																key={index}
+															/>
+														))}
+												</ul>
+											</>
+										)}
+
 										<Dialog.Title
 											as='h3'
 											className='font-black text-4xl text-slate-600 my-5'
@@ -125,6 +131,8 @@ function DetailsTaskModal() {
 												)}
 											</select>
 										</div>
+
+										<NotesPanel />
 									</Dialog.Panel>
 								</Transition.Child>
 							</div>

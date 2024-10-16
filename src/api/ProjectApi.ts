@@ -43,9 +43,8 @@ class ProjectAPI {
 		try {
 			const url = `/projects/${id}`;
 			const { data } = await api(url);
-			console.log(data);
 			const result = projectSchema.safeParse(data);
-			console.log(result);
+
 			if (!result.success) {
 				throw result.error;
 			}
