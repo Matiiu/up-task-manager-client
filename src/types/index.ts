@@ -2,7 +2,7 @@ import {
 	projectSchema,
 	taskSchema,
 	taskStatusSchema,
-	ActivityLogSchema,
+	activityLogSchema,
 } from '@/schemas/index';
 import { z } from 'zod';
 
@@ -18,5 +18,5 @@ export type ProjectFormData = Pick<
 export type TaskStatus = z.infer<typeof taskStatusSchema>;
 export type Task = z.infer<typeof taskSchema>;
 export type TaskFormData = Pick<Task, 'name' | 'description'>;
-export type ActivityLog = z.infer<typeof ActivityLogSchema>;
+export type ActivityLog = z.infer<typeof activityLogSchema>;
 // ********** End Task **********

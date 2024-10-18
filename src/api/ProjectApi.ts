@@ -3,6 +3,7 @@ import { AxiosError, isAxiosError } from 'axios';
 import { projectSchema, dashboardProjectSchema } from '../schemas';
 import { ZodError } from 'zod';
 import type { Project, ProjectFormData } from '@/types/index';
+import { handleApiError } from '@/utils/errorsUtils';
 
 type ErrorResponse = {
 	errors: Array<{ msg: string }>;
@@ -33,8 +34,8 @@ class ProjectAPI {
 			}
 			return response.data;
 		} catch (error) {
-			if (isAxiosError(error)) ProjectAPI.handleAxiosError(error);
-			if (error instanceof ZodError) ProjectAPI.handleZodError(error);
+			handleApiError(error);
+			console.error('unexpected error: ', error);
 			throw new Error('Error al obtener los proyectos');
 		}
 	}
@@ -44,7 +45,6 @@ class ProjectAPI {
 			const url = `/projects/${id}`;
 			const { data } = await api(url);
 			const result = projectSchema.safeParse(data);
-
 			if (!result.success) {
 				throw result.error;
 			}

@@ -7,8 +7,8 @@ import { toast } from 'react-toastify';
 import { formatToLongDate } from '@/utils/index';
 import { statusTranslations } from '@/locales/es';
 import type { Task as TTask } from '@/types/index';
-import ShowActivityLog from './ShowActivityLog';
-import NotesPanel from '../notes/NotesPanel';
+import ShowActivityLog from '@/components/tasks/ShowActivityLog';
+import NotesPanel from '@/components/notes/NotesPanel';
 
 function DetailsTaskModal() {
 	const params = useParams();
@@ -91,7 +91,7 @@ function DetailsTaskModal() {
 										</p>
 										{data.completedBy.length > 0 && (
 											<>
-												<p className='text-lg text-slate-500 mb-2'>
+												<p className='font-bold text-2xl text-slate-600 my-5'>
 													Historial de Cambios
 												</p>
 												<ul className='list-decimal'>
@@ -132,7 +132,7 @@ function DetailsTaskModal() {
 											</select>
 										</div>
 
-										<NotesPanel />
+										<NotesPanel notes={data.notes} />
 									</Dialog.Panel>
 								</Transition.Child>
 							</div>

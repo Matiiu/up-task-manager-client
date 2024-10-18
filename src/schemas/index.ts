@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { userSchema } from '@/schemas/authSchemas';
+import { noteSchema } from '@/schemas/noteSchemas';
 
 // ********** Star Task **********
 export const taskStatusSchema = z.enum([
@@ -10,7 +11,7 @@ export const taskStatusSchema = z.enum([
 	'completed',
 ]);
 
-export const ActivityLogSchema = z.object({
+export const activityLogSchema = z.object({
 	user: z.union([
 		z.string(),
 		z.object(userSchema.pick({ _id: true, name: true, email: true }).shape),
@@ -26,7 +27,12 @@ export const taskSchema = z.object({
 	createdAt: z.string(),
 	updatedAt: z.string(),
 	status: taskStatusSchema,
-	completedBy: z.array(ActivityLogSchema).default([]),
+	notes: z.array(noteSchema.extend({ createdBy: userSchema })).default([]),
+	completedBy: z.array(activityLogSchema).default([]),
+});
+
+export const taskSchemaWithStringNotes = taskSchema.extend({
+	notes: z.array(z.string()),
 });
 // ********** End Task **********
 
@@ -38,7 +44,7 @@ export const projectSchema = z.object({
 	description: z.string(),
 	createdAt: z.string(),
 	updatedAt: z.string(),
-	tasks: z.array(taskSchema),
+	tasks: z.array(taskSchemaWithStringNotes),
 	manager: z.string(userSchema.pick({ _id: true })),
 });
 
