@@ -1,22 +1,45 @@
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import type { NoteForm } from '@/types/noteTypes';
 import ErrorMsg from '@/components/ErrorMsg';
+import NoteAPI from '@/api/NoteAPI';
 
 const initializeNote = (): NoteForm => ({
 	content: '',
 });
 
 export default function AddNoteForm() {
+	const params = useParams();
+	const projectId = params?.projectId ?? '';
+	const queryParams = new URLSearchParams(location.search);
+	const taskId = queryParams.get('viewTask') ?? '';
+	const queryClient = useQueryClient();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm({
 		defaultValues: initializeNote(),
 	});
 
-	const handleAddNote = (data: NoteForm) => {
-		console.log(data);
+	const { mutate } = useMutation({
+		mutationFn: NoteAPI.create,
+		onError: (error) => {
+			toast.error(error.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data);
+			reset();
+			queryClient.invalidateQueries({ queryKey: ['task', taskId] });
+		},
+	});
+
+	const handleAddNote = (note: NoteForm) => {
+		mutate({ projectId, taskId, note });
 	};
 
 	return (
