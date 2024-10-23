@@ -1,6 +1,6 @@
 import AddNoteForm from '@/components/notes/AddNoteForm';
 import type { Task } from '@/types/index';
-import DetailsNote from './DetailsNote';
+import DetailsNote from '@/components/notes/DetailsNote';
 
 type NotesPanelProps = {
 	notes: Task['notes'];
@@ -11,7 +11,7 @@ export default function NotesPanel({ notes }: NotesPanelProps) {
 		<>
 			<AddNoteForm />
 
-			<div className='divide-y divide-gray-100 mt-10'>
+			<section className='divide-y divide-gray-100 mt-10'>
 				{notes.length ? (
 					<>
 						<p className='font-bold text-2xl text-slate-600 my-5'>Notas:</p>
@@ -22,7 +22,7 @@ export default function NotesPanel({ notes }: NotesPanelProps) {
 				) : (
 					<p className='text-gray-500 text-center pt-3'>No Hay Notas</p>
 				)}
-			</div>
+			</section>
 		</>
 	);
 }
