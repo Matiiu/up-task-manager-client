@@ -1,21 +1,35 @@
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import ErrorMsg from '@/components/ErrorMsg';
 import type { User, UserProfileForm } from '@/types/authTypes';
+import ProfileAPI from '@/api/ProfileAPI';
 
 type ProfileFormProps = {
 	user: User;
 };
 
 export default function ProfileForm({ user }: ProfileFormProps) {
+	const queryClient = useQueryClient();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<UserProfileForm>({ defaultValues: user });
 
-	const handleEditProfile = (formData: UserProfileForm) => {
-		console.log(formData);
-	};
+	const { mutate } = useMutation({
+		mutationFn: ProfileAPI.update,
+		onError: (error) => {
+			toast.error(error.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data);
+			queryClient.invalidateQueries({ queryKey: ['user'] });
+		},
+	});
+
+	const handleEditProfile = (formData: UserProfileForm) => mutate(formData);
 
 	return (
 		<>
