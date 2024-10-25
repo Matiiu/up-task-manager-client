@@ -11,8 +11,8 @@ function LoginRoutes() {
 	return (
 		<Routes>
 			<Route element={<AuthLayout />}>
-				<Route index path='/login' element={<LoginView />} />
-				<Route path='/register' element={<RegisterView />} />
+				<Route index path='login' element={<LoginView />} />
+				<Route path='register' element={<RegisterView />} />
 				<Route path='confirm-account' element={<ConfirmAccountView />} />
 				<Route path='restore-password' element={<RequestNewTokenView />} />
 				<Route path='restore-password' element={<RestorePasswordView />} />

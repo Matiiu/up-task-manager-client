@@ -16,3 +16,4 @@ export type NewPasswordFormWithToken = Pick<
 	'password' | 'passwordConfirmation' | 'token'
 >;
 export type User = z.infer<typeof userSchema>;
+export type UserProfileForm = Pick<User, 'name' | 'email'>;
