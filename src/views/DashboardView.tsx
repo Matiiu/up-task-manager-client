@@ -1,32 +1,23 @@
-import { Fragment } from 'react';
+import { Fragment, lazy, Suspense } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
-import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import ProjectAPI from '@/api/ProjectAPI';
 import useAuth from '@/hooks/useAuth';
 import { isManager } from '@/utils/policies';
 
 function DashboardView() {
+	const navigate = useNavigate();
 	const { data: authenticatedUser, isLoading: isAuthLoading } = useAuth();
+	const LazyDeleteProjectModal = lazy(
+		() => import('@/components/projects/DeleteProjectModal'),
+	);
 
 	const { data, isLoading, isError, error } = useQuery({
 		queryKey: ['projects'],
 		queryFn: ProjectAPI.getProjects,
-	});
-
-	const queryClient = useQueryClient();
-	const { mutate } = useMutation({
-		mutationFn: ProjectAPI.deleteProject,
-		onError: (error) => {
-			toast.error(error.message);
-		},
-		onSuccess: (data) => {
-			toast.success(data);
-			// Invalidate the cache to trigger a re-fetch
-			queryClient.invalidateQueries({ queryKey: ['projects'] });
-		},
 	});
 
 	if (isLoading && isAuthLoading) return 'Cargando...';
@@ -48,7 +39,6 @@ function DashboardView() {
 						Nuevo Proyecto
 					</Link>
 				</nav>
-
 				{!data.length ? (
 					<p className='text-center py-20'>
 						No hay proyectos aún{' '}
@@ -136,7 +126,12 @@ function DashboardView() {
 															<button
 																type='button'
 																className='block px-3 py-1 text-sm leading-6 text-red-500'
-																onClick={() => mutate(project._id)}
+																onClick={() =>
+																	navigate(
+																		location.pathname +
+																			`?deleteProject=${project._id}`,
+																	)
+																}
 															>
 																Eliminar Proyecto
 															</button>
@@ -151,6 +146,10 @@ function DashboardView() {
 						))}
 					</ul>
 				)}
+
+				<Suspense fallback='Cargando...'>
+					<LazyDeleteProjectModal />
+				</Suspense>
 			</>
 		);
 	}

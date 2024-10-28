@@ -12,6 +12,7 @@ export type ProjectFormData = Pick<
 	Project,
 	'clientName' | 'projectName' | 'description'
 >;
+export type ProjectWithoutTasks = Omit<Project, 'tasks'>;
 // ********** End Project **********
 
 // ********** Star Task **********

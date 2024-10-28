@@ -3,16 +3,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type { Task as TTask } from '@/types/index';
+import { useDraggable } from '@dnd-kit/core';
+import type { Project } from '@/types/index';
 import { toast } from 'react-toastify';
 import Task from '@/api/TaskAPI';
 
 type TaskCardProps = {
-	task: TTask;
+	task: Project['tasks'][0];
 	isManager: boolean;
 };
 
 function TaskCard({ task, isManager = false }: TaskCardProps) {
+	const { attributes, listeners, setNodeRef, transform } = useDraggable({
+		id: task._id,
+	});
 	const navigate = useNavigate();
 	const params = useParams();
 	const ProjectId = params.projectId!;
@@ -29,9 +33,19 @@ function TaskCard({ task, isManager = false }: TaskCardProps) {
 		},
 	});
 
+	const style = transform
+		? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` }
+		: undefined;
+
 	return (
 		<li className='p-5 bg-white border border-slate-300 flex justify-between'>
-			<div className='min-w-0 flex flex-col gap-y-4'>
+			<div
+				{...listeners}
+				{...attributes}
+				ref={setNodeRef}
+				style={style}
+				className='min-w-0 flex flex-col gap-y-4'
+			>
 				<button
 					type='button'
 					className='text-xl font-bold text-slate-600'
