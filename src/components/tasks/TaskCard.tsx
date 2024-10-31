@@ -13,10 +13,11 @@ type TaskCardProps = {
 	isManager: boolean;
 };
 
-function TaskCard({ task, isManager = false }: TaskCardProps) {
-	const { attributes, listeners, setNodeRef, transform } = useDraggable({
-		id: task._id,
-	});
+export default function TaskCard({ task, isManager = false }: TaskCardProps) {
+	const { attributes, listeners, setNodeRef, transform, isDragging } =
+		useDraggable({
+			id: task._id,
+		});
 	const navigate = useNavigate();
 	const params = useParams();
 	const ProjectId = params.projectId!;
@@ -33,31 +34,39 @@ function TaskCard({ task, isManager = false }: TaskCardProps) {
 		},
 	});
 
-	const style = transform
-		? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` }
+	// Styles when dragging the task
+	const dragStyles = transform
+		? {
+				transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+				padding: '1.25rem',
+				backgroundColor: 'rgb(255 255 255 / 42%)',
+				width: '300px',
+				display: 'flex',
+				borderWidth: '1px',
+				borderColor: 'rgb(203 213 225)',
+			}
 		: undefined;
 
 	return (
-		<li className='p-5 bg-white border border-slate-300 flex justify-between'>
+		<li
+			className={`${isDragging ? 'bg-transparent border-none' : 'border border-slate-300 p-5 bg-white  flex justify-between'}`}
+		>
 			<div
 				{...listeners}
 				{...attributes}
 				ref={setNodeRef}
-				style={style}
+				style={dragStyles}
 				className='min-w-0 flex flex-col gap-y-4'
 			>
-				<button
-					type='button'
-					className='text-xl font-bold text-slate-600'
-					onClick={() => navigate(location.pathname + `?viewTask=${task._id}`)}
-				>
-					{task.name}
-				</button>
+				<p className='text-xl font-bold text-slate-600'>{task.name}</p>
 				<p className='text-slate-500'>{task.description}</p>
 			</div>
 
 			<div className='flex shrink-0  gap-x-6'>
-				<Menu as='div' className='relative flex-none'>
+				<Menu
+					as='div'
+					className={`${isDragging ? 'hidden' : 'relative flex-none'}`}
+				>
 					<Menu.Button className='-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900'>
 						<span className='sr-only'>opciones</span>
 						<EllipsisVerticalIcon className='h-9 w-9' aria-hidden='true' />
@@ -120,5 +129,3 @@ function TaskCard({ task, isManager = false }: TaskCardProps) {
 		</li>
 	);
 }
-
-export default TaskCard;

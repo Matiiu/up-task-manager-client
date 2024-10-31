@@ -36,7 +36,7 @@ export default function AddMemberForm() {
 	};
 
 	const handleSearchUser = async (teamMemberForm: TeamMemberForm) => {
-		mutation.mutate({ projectId, ...teamMemberForm });
+		mutation.mutate({ projectId, teamMemberForm });
 	};
 
 	return (

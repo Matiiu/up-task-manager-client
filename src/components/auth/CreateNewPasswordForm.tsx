@@ -38,13 +38,8 @@ function NewPasswordForm({ token }: NewPasswordFormProps) {
 		},
 	});
 
-	const handleNewPassword = (newPasswordForm: NewPasswordForm) => {
-		const body = {
-			...newPasswordForm,
-			token,
-		};
-		mutate(body);
-	};
+	const handleNewPassword = (newPasswordForm: NewPasswordForm) =>
+		mutate({ newPasswordForm, token });
 
 	const password = watch('password');
 

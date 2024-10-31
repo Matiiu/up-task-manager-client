@@ -4,8 +4,8 @@ import type {
 	ConfirmToken,
 	UserLoginForm,
 	RestorePasswordForm,
-	NewPasswordFormWithToken,
 	RequestConfirmationTokenForm,
+	NewPasswordForm,
 } from '@/types/authTypes';
 import { authTokenSchema, userSchema } from '@/schemas/authSchemas';
 import { CustomZodError, handleApiError } from '@/utils/errorsUtils';
@@ -106,13 +106,16 @@ class AuthAPI {
 		}
 	};
 
-	static createNewPasswordByToken = async (
-		newPasswordForm: NewPasswordFormWithToken,
-	) => {
+	static createNewPasswordByToken = async ({
+		newPasswordForm,
+		token,
+	}: {
+		newPasswordForm: NewPasswordForm;
+		token: ConfirmToken['token'];
+	}) => {
 		try {
-			const { token, ...rest } = newPasswordForm;
 			const uri = `auth/new-password/${token}`;
-			const { data } = await api.post<string>(uri, rest);
+			const { data } = await api.post<string>(uri, newPasswordForm);
 			return data;
 		} catch (error) {
 			handleApiError(error);

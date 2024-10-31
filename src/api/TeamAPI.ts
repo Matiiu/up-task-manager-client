@@ -3,10 +3,11 @@ import { handleApiError } from '@/utils/errorsUtils';
 
 import { teamMemberSchema, teamMembersSchema } from '@/schemas/teamSchemas';
 import type {
-	TeamMemberFormWithProjectId,
+	TeamMemberForm,
 	AddMemberToProject,
 	RemoveMemberFromProject,
 } from '@/types/teamTypes';
+import { Project } from '../types';
 
 export default class TeamAPI {
 	private static readonly ENDPOINT = '/team';
@@ -28,13 +29,16 @@ export default class TeamAPI {
 			);
 		}
 	};
-	static getMemberByEmail = async (
-		teamMemberForm: TeamMemberFormWithProjectId,
-	) => {
+	static getMemberByEmail = async ({
+		teamMemberForm,
+		projectId,
+	}: {
+		teamMemberForm: TeamMemberForm;
+		projectId: Project['_id'];
+	}) => {
 		try {
-			const { projectId, ...rest } = teamMemberForm;
 			const uri = `${this.ENDPOINT}/${projectId}/find`;
-			const { data } = await api.post(uri, rest);
+			const { data } = await api.post(uri, teamMemberForm);
 			const result = teamMemberSchema.safeParse(data);
 			if (!result.success) {
 				throw result.error;
