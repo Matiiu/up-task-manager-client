@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { userSchema } from './authSchemas';
+import { userSchema } from '@/schemas/authSchemas';
 
 export const noteSchema = z.object({
 	_id: z.string(),
