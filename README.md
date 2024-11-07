@@ -50,6 +50,8 @@ Up Task Manager is a web application designed to streamline project management b
   - [TypeScript](https://www.typescriptlang.org/): Typed superset of JavaScript for more predictable code.
   - [MongoDB](https://www.mongodb.com/): NoSQL database for storing project and task data.
 
+You can find the backend of this project [here](https://github.com/Matiiu/up-task-manager-server).
+
 - **Authentication**
   - [JWT (JSON Web Token)](https://jwt.io/): Provides secure token-based authentication with a 30-day token expiry for extended access.
 
@@ -156,25 +158,7 @@ Here's a high-level overview of the project structure:
 ```plaintext
 plaintext
 up-task-manager/
-│
-├── backend/
-│   ├── controllers/
-│   │   ├── projects/
-│   │   ├── tasks/
-│   │   ├── profiles/
-│   │   └── team/
-│   ├── models/
-│   ├── routes/
-│   │   ├── projects/
-│   │   ├── tasks/
-│   │   ├── profiles/
-│   │   └── team/
-│   ├── middleware/
-│   ├── utils/
-│   ├── app.ts      # Main application entry
-│   └── server.ts   # Starts the server
-│
-└── frontend/
+├──  frontend/
     ├── src/
     │   ├── components/
     │   │   ├── projects/
