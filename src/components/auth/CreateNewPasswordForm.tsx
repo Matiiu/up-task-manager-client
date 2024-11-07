@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import ErrorMsg from '@/components/ErrorMsg';
 import type { ConfirmToken, NewPasswordForm } from '@/types/authTypes';
-import AuthAPI from '@/api/AuthAPI';
+import AuthAPI from '../../api/AuthAPI';
 import { toast } from 'react-toastify';
 import { PASSWORD_REGEX } from '@/constants/authConstants';
 

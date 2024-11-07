@@ -4,7 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import ProjectAPI from '@/api/ProjectAPI';
+import ProjectAPI from '../api/ProjectAPI';
 import useAuth from '@/hooks/useAuth';
 import { isManager } from '@/utils/policies';
 

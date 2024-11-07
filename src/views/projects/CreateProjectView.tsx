@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import ProjectForm from '@/components/projects/ProjectForm';
 import type { ProjectFormData } from '@/types/index';
-import ProjectAPI from '@/api/ProjectAPI';
+import ProjectAPI from '../../api/ProjectAPI';
 import SubmitDisplayButton from '@/components/SubmitDisplayButton';
 
 const initialValues: ProjectFormData = {

@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import ErrorMsg from '@/components/ErrorMsg';
 import type { User, UserProfileForm } from '@/types/authTypes';
-import ProfileAPI from '@/api/ProfileAPI';
+import ProfileAPI from '../../api/ProfileAPI';
 
 type ProfileFormProps = {
 	user: User;

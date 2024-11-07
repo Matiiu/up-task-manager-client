@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import type { ProjectFormData, Project } from '@/types/index';
 import ProjectForm from '@/components/projects/ProjectForm';
-import ProjectAPI from '@/api/ProjectAPI';
+import ProjectAPI from '../../api/ProjectAPI';
 import { toast } from 'react-toastify';
 import SubmitDisplayButton from '@/components/SubmitDisplayButton';
 

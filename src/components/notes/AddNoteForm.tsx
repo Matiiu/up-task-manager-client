@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import type { NoteForm } from '@/types/noteTypes';
 import ErrorMsg from '@/components/ErrorMsg';
-import NoteAPI from '@/api/NoteAPI';
+import NoteAPI from '../../api/NoteAPI';
 
 const initializeNote = (): NoteForm => ({
 	content: '',
