@@ -1,4 +1,4 @@
-function SubmitDisplayButton({ label }: { label: string }) {
+export default function SubmitDisplayButton({ label = '' }) {
 	return (
 		<button
 			type='submit'
@@ -8,5 +8,3 @@ function SubmitDisplayButton({ label }: { label: string }) {
 		</button>
 	);
 }
-
-export default SubmitDisplayButton;

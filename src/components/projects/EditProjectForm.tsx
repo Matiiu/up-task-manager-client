@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import type { ProjectFormData, Project } from '@/types/index';
-import ProjectForm from './ProjectForm';
+import ProjectForm from '@/components/projects/ProjectForm';
 import ProjectAPI from '@/api/ProjectAPI';
 import { toast } from 'react-toastify';
-import SubmitDisplayButton from '../SubmitDisplayButton';
+import SubmitDisplayButton from '@/components/SubmitDisplayButton';
 
 type EditProjectFormProps = {
 	projectId: Project['_id'];
