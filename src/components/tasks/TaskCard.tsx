@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDraggable } from '@dnd-kit/core';
 import type { Project } from '@/types/index';
 import { toast } from 'react-toastify';
-import Task from '../../api/Task';
+import Task from '@/api/Task';
 
 type TaskCardProps = {
 	task: Project['tasks'][0];

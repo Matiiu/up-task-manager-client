@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import ErrorMsg from '@/components/ErrorMsg';
 import type { ChangePassword } from '@/types/profileTypes';
 import { PASSWORD_REGEX } from '@/constants/authConstants';
-import ProfileAPI from '../../api/Profile';
+import ProfileAPI from '@/api/Profile';
 
 const initializedChangePassword = (): ChangePassword => ({
 	currentPassword: '',

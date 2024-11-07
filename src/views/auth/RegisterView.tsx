@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { UserRegistrationForm } from '@/types/authTypes';
 import ErrorMsg from '@/components/ErrorMsg';
-import AuthAPI from '../../api/Auth';
+import AuthAPI from '@/api/Auth';
 import { toast } from 'react-toastify';
 import { PASSWORD_REGEX, EMAIL_REGEX } from '@/constants/authConstants';
 

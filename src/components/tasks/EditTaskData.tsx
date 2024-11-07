@@ -1,6 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import Task from '../../api/Task';
+import Task from '@/api/Task';
 import EditTaskModal from './EditTaskModal';
 
 function EditTaskData() {

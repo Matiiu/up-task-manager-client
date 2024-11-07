@@ -1,6 +1,6 @@
 import api from '@/lib/axios';
 import { AxiosError, isAxiosError } from 'axios';
-import { projectSchema, dashboardProjectSchema } from '../schemas';
+import { projectSchema, dashboardProjectSchema } from '@/schemas/index';
 import { ZodError } from 'zod';
 import type { Project, ProjectFormData } from '@/types/index';
 import { handleApiError } from '@/utils/errorsUtils';

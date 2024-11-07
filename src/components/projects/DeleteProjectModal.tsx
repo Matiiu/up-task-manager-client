@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ErrorMsg from '@/components/ErrorMsg';
 import type { CheckPassword } from '@/types/profileTypes';
-import ProfileAPI from '../../api/Profile';
-import ProjectAPI from '../../api/Project';
+import ProfileAPI from '@/api/Profile';
+import ProjectAPI from '@/api/Project';
 
 const initializedCheckPasswordForm = (): CheckPassword => ({
 	password: '',

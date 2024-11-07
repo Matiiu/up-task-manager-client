@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import type { UserLoginForm } from '@/types/authTypes';
 import ErrorMsg from '@/components/ErrorMsg';
-import AuthAPI from '../../api/Auth';
+import AuthAPI from '@/api/Auth';
 import { EMAIL_REGEX } from '@/constants/authConstants';
 
 const initializeUserLoginForm = (): UserLoginForm => ({

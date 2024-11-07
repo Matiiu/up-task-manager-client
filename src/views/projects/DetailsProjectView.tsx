@@ -1,7 +1,7 @@
 import { lazy, Suspense, memo } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import ProjectAPI from '../../api/Project';
+import ProjectAPI from '@/api/Project';
 import TaskList from '@/components/tasks/TaskList';
 import useAuth from '@/hooks/useAuth';
 import { isManager } from '@/utils/policies';

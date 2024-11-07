@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import { toast } from 'react-toastify';
 import type { ConfirmToken } from '@/types/authTypes';
-import AuthAPI from '../../api/Auth';
+import AuthAPI from '@/api/Auth';
 
 type NewPasswordTokenProps = {
 	token: ConfirmToken['token'];

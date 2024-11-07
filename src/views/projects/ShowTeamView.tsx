@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams, Navigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import AddMemberModal from '@/components/team/AddMember';
-import TeamAPI from '../../api/Team';
+import TeamAPI from '@/api/Team';
 import ShowMember from '@/components/team/ShowMember';
 
 export default function ShowTeamView() {

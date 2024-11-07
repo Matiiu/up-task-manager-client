@@ -2,7 +2,7 @@ import { Fragment, useEffect, ChangeEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import Task from '../../api/Task';
+import Task from '@/api/Task';
 import { toast } from 'react-toastify';
 import { formatToLongDate } from '@/utils/index';
 import { statusTranslations } from '@/locales/es';

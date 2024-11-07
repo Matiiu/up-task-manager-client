@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import type { ConfirmToken } from '@/types/authTypes';
-import AuthAPI from '../../api/Auth';
+import AuthAPI from '@/api/Auth';
 import { toast } from 'react-toastify';
 
 function ConfirmAccountView() {

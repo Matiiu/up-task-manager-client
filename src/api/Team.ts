@@ -7,7 +7,7 @@ import type {
 	AddMemberToProject,
 	RemoveMemberFromProject,
 } from '@/types/teamTypes';
-import { Project } from '../types';
+import { Project } from '@/types/index';
 
 export default class TeamAPI {
 	private static readonly ENDPOINT = '/team';
