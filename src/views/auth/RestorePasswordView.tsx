@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { RestorePasswordForm } from '@/types/authTypes';
 import ErrorMsg from '@/components/ErrorMsg';
-import AuthAPI from '../../api/AuthAPI';
+import AuthAPI from '../../api/Auth';
 
 const initializeRestorePasswordForm = (): RestorePasswordForm => ({
 	email: '',

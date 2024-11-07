@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { toast } from 'react-toastify';
-import TeamAPI from '../../api/TeamAPI';
+import TeamAPI from '../../api/Team';
 import type { TeamMember } from '@/types/teamTypes';
 
 type ShowMemberProps = {

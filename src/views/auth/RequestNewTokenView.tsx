@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { RequestConfirmationTokenForm } from '@/types/authTypes';
 import ErrorMsg from '@/components/ErrorMsg';
-import AuthAPI from '../../api/AuthAPI';
+import AuthAPI from '../../api/Auth';
 import { toast } from 'react-toastify';
 function RequestNewTokenView() {
 	const initialValues: RequestConfirmationTokenForm = {

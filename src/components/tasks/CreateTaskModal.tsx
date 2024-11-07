@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { TaskFormData } from '@/types/index';
 import SubmitDisplayButton from '../SubmitDisplayButton';
 import TaskForm from './TaskForm';
-import Task from '../../api/TaskAPI';
+import Task from '../../api/Task';
 import { toast } from 'react-toastify';
 
 const initialTaskValues: TaskFormData = {

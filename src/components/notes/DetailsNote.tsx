@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import useAuth from '@/hooks/useAuth';
 import type { Note } from '@/types/noteTypes';
 import { formatToLongDate } from '@/utils/index';
-import NoteAPI from '../../api/NoteAPI';
+import NoteAPI from '../../api/Note';
 
 type DetailsNotaProps = {
 	note: Note;

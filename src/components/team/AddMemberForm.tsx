@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import ErrorMsg from '@/components/ErrorMsg';
 import type { TeamMemberForm } from '@/types/teamTypes';
 import { EMAIL_REGEX } from '@/constants/authConstants';
-import TeamAPI from '../../api/TeamAPI';
+import TeamAPI from '../../api/Team';
 import ShowMembers from '@/components/team/ShowMembers';
 
 const initializedAddMemberForm = (): TeamMemberForm => ({

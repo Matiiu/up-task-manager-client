@@ -1,6 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import ProjectAPI from '../../api/ProjectAPI';
+import ProjectAPI from '../../api/Project';
 import EditProjectForm from '@/components/projects/EditProjectForm';
 
 function EditProjectView() {

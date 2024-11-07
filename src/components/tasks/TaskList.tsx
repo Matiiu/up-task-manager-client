@@ -7,7 +7,7 @@ import TaskCard from '@/components/tasks/TaskCard';
 import { statusStyle } from '@/constants/index';
 import { statusTranslations } from '@/locales/es';
 import DropTask from '@/components/tasks/DropTask';
-import Task from '../../api/TaskAPI';
+import Task from '../../api/Task';
 
 type GroupTask = {
 	[key: string]: Project['tasks'];

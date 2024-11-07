@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import type { TeamMember } from '@/types/teamTypes';
-import TeamAPI from '../../api/TeamAPI';
+import TeamAPI from '../../api/Team';
 
 type ShowMembersProps = {
 	user: TeamMember;
