@@ -14,7 +14,7 @@ type ProjectParams = {
 	formData: ProjectFormData;
 };
 
-class ProjectAPI {
+export default class ProjectAPI {
 	static async createProject(formData: ProjectFormData) {
 		try {
 			const { data } = await api.post<string>('/projects', formData);
@@ -97,5 +97,3 @@ class ProjectAPI {
 		throw new Error(`Error de validación de datos: ${errorMessage}.`);
 	}
 }
-
-export default ProjectAPI;
